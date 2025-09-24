@@ -1,1 +1,1 @@
-# CSE-499
+# Tiny Bytes Academy
