@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tiny_Bytes_Academy.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Tiny_Bytes_Academy.Views.StartPage"
+             x:DataType="vm:StartPageViewModel">
+
+    <ContentPage.BindingContext>
+        <vm:StartPageViewModel />
+    </ContentPage.BindingContext>
+
+    <!-- This code makes the grid rows by default take up equal space, but you can 
+    adjust the proportions by changing the star values in the RowDefinitions. For 
+    example, RowDefinitions="2*, 3*" would make the first row take up 2/5 of the 
+    space and the second row take up 3/5. -->
+    <Grid RowDefinitions="2*, 3*"
+          BackgroundColor="#1A2238">
+
+        <Label Grid.Row="0"
+               Text="Tiny Bytes &#x0A;  Academy" 
+               FontSize="32"
+               FontFamily="CascadiaMono"
+               TextColor="#F4F4F4"
+               VerticalOptions="End"
+               HorizontalOptions="Center" />
+        <!--
+        <Label Grid.Row="1"
+            Text="Retro title"
+            FontFamily="PressStartP2"
+            FontSize="18" 
+            TextColor="White"/>
+
+        <Label Grid.Row="2"
+            Text="Monospace style"
+            FontFamily="VT323"
+            FontSize="16" 
+            TextColor="White"
+            VerticalOptions="Center"
+            HorizontalOptions="Center"/>
+
+        <Label Grid.Row="3"
+            Text="Body (Montserrat)"
+            FontFamily="Montserrat"
+            FontSize="14" 
+            TextColor="White"
+            VerticalOptions="Center"
+            HorizontalOptions="End"/>
+-->
+        
+        <!-- Make this button symbol the circle with an 'i' inside -->
+<!--
+<Button Grid.Row="0"
+        Clicked="OnNavigateButtonClicked"
+        BackgroundColor="#00A8F3"
+        Text="About"
+        TextColor="#F4F4F4"
+        FontFamily="CascadiaMono">
+    <Button.ImageSource>
+        Replace Glyph and FontFamily with your font's codepoint and alias -->
+<!--        <FontImageSource Glyph="&#xE946;" FontFamily="YourIconFontAlias" Color="#F4F4F4" Size="18" />
+    </Button.ImageSource>
+</Button>
+-->
+        <Border Grid.Row="0"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                Background="Transparent"
+                Padding="8"
+                StrokeShape="RoundRectangle 6"
+                Stroke="Transparent">
+            <HorizontalStackLayout Spacing="1" VerticalOptions="Center">
+                <Label
+                       TextColor="#F4F4F4"
+                       FontFamily="CascadiaMono"
+                       VerticalOptions="Center" />
+                <Image Source="ic_fluent_info_24_regular.png"
+                       HeightRequest="20"
+                       WidthRequest="20"
+                       Aspect="AspectFit"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="#F4F4F4" />
+                    </Image.Behaviors>
+                </Image>
+            </HorizontalStackLayout>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnNavigateButtonClicked" NumberOfTapsRequired="1" />
+            </Border.GestureRecognizers>
+        </Border>
+
+        <Grid Grid.Row="3"
+              HorizontalOptions="Center"
+              VerticalOptions="Start"
+              Margin="50">
+            <Grid>
+                <Button x:Name="NavigateButton"
+                        SemanticProperties.Hint="These 1s and 0s are what you will learn about"
+                        Clicked="OnNavigateButtonClicked"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        HeightRequest="50"
+                        WidthRequest="250"
+                        Text="Go (01000111 01101111)" />
+<!--
+                <Image Source="ic_fluent_arrow_right_24_regular.png"
+                       HeightRequest="24"
+                       WidthRequest="24"
+                       Aspect="AspectFit"
+                       HorizontalOptions="End"
+                       VerticalOptions="Center">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="Black" />
+                    </Image.Behaviors>
+                </Image>
+                -->
+            </Grid>
+        </Grid>
+    </Grid>
+
+
+
+
+</ContentPage>

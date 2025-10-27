@@ -1,0 +1,2 @@
+﻿Logic, bindings, commands
+All conversions, navigation, and state should live in ViewModels.

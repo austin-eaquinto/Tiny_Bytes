@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:Tiny_Bytes_Academy.Views"
+       x:Class="Tiny_Bytes_Academy.AppShell"
+       Shell.FlyoutBackgroundColor="{StaticResource Black}"
+       ForegroundColor="#00A8F3"
+       UnselectedColor="Purple"
+       TitleColor="Purple">
+
+    <!-- optional header shown at top of flyout -->
+    <Shell.FlyoutHeader>
+        <Grid Padding="16" BackgroundColor="#222">
+            <Label Text="Tiny Bytes Academy"
+                   FontSize="18"
+/>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <!-- make each shell entry a FlyoutItem so you can set icons and grouping -->
+    <FlyoutItem Title="Welcome" Icon="icon_home.png">
+        <ShellContent ContentTemplate="{DataTemplate views:StartPage}"
+                      Route="StartPage" />
+    </FlyoutItem>
+
+
+    <FlyoutItem Title="Main Menu" Icon="icon_menu.png">
+        <ShellContent ContentTemplate="{DataTemplate views:SecondPage}"
+                      Route="SecondPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Binary1" Icon="icon_menu.png">
+        <ShellContent ContentTemplate="{DataTemplate views:BinaryLesson01}"
+                  Route="BinaryLesson01" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Binary2" Icon="icon_menu.png">
+        <ShellContent ContentTemplate="{DataTemplate views:BinaryLesson02}"
+              Route="BinaryLesson02" />
+    </FlyoutItem>
+
+    <!-- You can also add MenuItems (actions) at the bottom of the flyout -->
+    <MenuItem Text="Sign Out"
+              Command="{Binding SignOutCommand}" />
+</Shell>

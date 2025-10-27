@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tiny_Bytes_Academy.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Tiny_Bytes_Academy.Views.BinaryLesson02"
+             x:DataType="vm:BinaryLesson02ViewModel">
+
+    <ContentPage.BindingContext>
+        <vm:BinaryLesson02ViewModel />
+    </ContentPage.BindingContext>
+
+    <!-- the number of rows on the page -->
+    <Grid RowDefinitions="*, *, *, *"
+          BackgroundColor="#1A2238">
+
+        <!-- Lesson number. Top Left -->
+        <Border Stroke="#00A8F3"
+                StrokeThickness="2"
+                BackgroundColor="#FF9F1C"
+                Padding="12, 5"
+                WidthRequest="100"
+                HeightRequest="33"
+                VerticalOptions="Start"
+                HorizontalOptions="Start">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10"/>
+            </Border.StrokeShape>
+
+            <Label x:Name="BinaryLesson1Label"
+               Grid.Row="0"
+               Text="{Binding LessonTitle}"
+               TextColor="#1A2238"
+               FontFamily="CascadiaMono"
+               FontSize="15" />
+        </Border>
+
+        <HorizontalStackLayout x:Name="ByteBox"
+            Grid.Row="1">
+            <Border Stroke="#F4F4F4"
+                    StrokeThickness="3">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10,0,0,10" />
+                </Border.StrokeShape>
+                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
+            </Border>
+            <Border Stroke="#F4F4F4"
+        StrokeThickness="3">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10,0,0,10" />
+                </Border.StrokeShape>
+                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
+            </Border>
+            <Border Stroke="#F4F4F4"
+        StrokeThickness="3">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10,0,0,10" />
+                </Border.StrokeShape>
+                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
+            </Border>
+            <Border Stroke="#F4F4F4"
+        StrokeThickness="3">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10,0,0,10" />
+                </Border.StrokeShape>
+                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
+            </Border>
+            <Border Stroke="#F4F4F4"
+        StrokeThickness="3">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10,0,0,10" />
+                </Border.StrokeShape>
+                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
+            </Border>
+            <Border Stroke="#F4F4F4"
+        StrokeThickness="3">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10,0,0,10" />
+                </Border.StrokeShape>
+                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
+            </Border>
+            <Border Stroke="#F4F4F4"
+        StrokeThickness="3">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10,0,0,10" />
+                </Border.StrokeShape>
+                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
+            </Border>
+            <Border Stroke="#F4F4F4"
+        StrokeThickness="3">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="0,10,0,10" />
+                </Border.StrokeShape>
+                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
+            </Border>
+        </HorizontalStackLayout>
+
+        <!-- Lesson content -->
+        <Label x:Name="LessonContentLabel"
+               Grid.Row="1"
+               Text="{Binding CurrentInstruction}"
+               TextColor="#F4F4F4"
+               FontFamily="CascadiaMono"
+               FontSize="18"
+               VerticalOptions="End" 
+               HorizontalOptions="Center" />
+
+        <!-- Next button. Bottom Right -->
+        <Button Grid.Row="3"
+                x:Name="NextButton"
+                Text="{Binding NextButtonText}"
+                TextColor="#F4F4F4"
+                FontFamily="CascadiaMono"
+                SemanticProperties.Hint="Goes to the next lesson item"
+                Clicked="OnNextButtonClicked"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                BackgroundColor="#00A8F3"/>
+    </Grid>
+</ContentPage>
