@@ -11,7 +11,6 @@ namespace Tiny_Bytes_Academy.ViewModels
         private readonly List<BinLesson1Step> _steps;
         private int _currentIndex; // To track the current step index
         private string _currentInstruction; // To hold the current instruction text
-        private bool lessonStarted = true; // To track if the lesson has just started
 
         public string LessonTitle { get; } = "Lesson 1";
 

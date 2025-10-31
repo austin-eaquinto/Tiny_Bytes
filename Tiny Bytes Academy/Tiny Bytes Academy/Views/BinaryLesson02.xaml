@@ -10,12 +10,11 @@
         <vm:BinaryLesson02ViewModel />
     </ContentPage.BindingContext>
 
-    <!-- the number of rows on the page -->
-    <Grid RowDefinitions="*, *, *, *"
-          BackgroundColor="#1A2238">
+    <Grid RowDefinitions="Auto, *, Auto, Auto" BackgroundColor="#1A2238">
 
         <!-- Lesson number. Top Left -->
-        <Border Stroke="#00A8F3"
+        <Border Grid.Row="0"
+                Stroke="#00A8F3"
                 StrokeThickness="2"
                 BackgroundColor="#FF9F1C"
                 Padding="12, 5"
@@ -23,78 +22,11 @@
                 HeightRequest="33"
                 VerticalOptions="Start"
                 HorizontalOptions="Start">
-
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="10"/>
             </Border.StrokeShape>
-
-            <Label x:Name="BinaryLesson1Label"
-               Grid.Row="0"
-               Text="{Binding LessonTitle}"
-               TextColor="#1A2238"
-               FontFamily="CascadiaMono"
-               FontSize="15" />
+            <Label x:Name="BinaryLesson1Label" Text="{Binding LessonTitle}" TextColor="#1A2238" FontFamily="CascadiaMono" FontSize="15" />
         </Border>
-
-        <HorizontalStackLayout x:Name="ByteBox"
-            Grid.Row="1">
-            <Border Stroke="#F4F4F4"
-                    StrokeThickness="3">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10,0,0,10" />
-                </Border.StrokeShape>
-                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
-            </Border>
-            <Border Stroke="#F4F4F4"
-        StrokeThickness="3">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10,0,0,10" />
-                </Border.StrokeShape>
-                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
-            </Border>
-            <Border Stroke="#F4F4F4"
-        StrokeThickness="3">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10,0,0,10" />
-                </Border.StrokeShape>
-                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
-            </Border>
-            <Border Stroke="#F4F4F4"
-        StrokeThickness="3">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10,0,0,10" />
-                </Border.StrokeShape>
-                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
-            </Border>
-            <Border Stroke="#F4F4F4"
-        StrokeThickness="3">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10,0,0,10" />
-                </Border.StrokeShape>
-                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
-            </Border>
-            <Border Stroke="#F4F4F4"
-        StrokeThickness="3">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10,0,0,10" />
-                </Border.StrokeShape>
-                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
-            </Border>
-            <Border Stroke="#F4F4F4"
-        StrokeThickness="3">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="10,0,0,10" />
-                </Border.StrokeShape>
-                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
-            </Border>
-            <Border Stroke="#F4F4F4"
-        StrokeThickness="3">
-                <Border.StrokeShape>
-                    <RoundRectangle CornerRadius="0,10,0,10" />
-                </Border.StrokeShape>
-                <Image Source="ic_fluent_number_circle_0_48_regular.png" Margin="10"/>
-            </Border>
-        </HorizontalStackLayout>
 
         <!-- Lesson content -->
         <Label x:Name="LessonContentLabel"
@@ -103,8 +35,47 @@
                TextColor="#F4F4F4"
                FontFamily="CascadiaMono"
                FontSize="18"
-               VerticalOptions="End" 
-               HorizontalOptions="Center" />
+               VerticalOptions="End"
+               HorizontalOptions="Center"
+               Margin="20"/>
+
+        <!-- MODIFIED: Changed HorizontalStackLayout to CollectionView -->
+        <!-- This will now display 8 bits from the ViewModel's 'Bits' collection -->
+        <CollectionView Grid.Row="2"
+                        ItemsSource="{Binding Bits}"
+                        IsVisible="{Binding IsBitVisible}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:BitViewModel">
+                    <Border Stroke="#F4F4F4"
+                            StrokeThickness="3"
+                            BackgroundColor="white">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="0,0,0,0" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <!-- The Command is now bound to the command on the individual BitViewModel -->
+                            <TapGestureRecognizer Command="{Binding ToggleCommand}" />
+                        </Border.GestureRecognizers>
+
+                        <Image Source="{Binding BitImageSource}" 
+                               Margin="10"
+                               HeightRequest="38"
+                               WidthRequest="38">
+                            <Image.Behaviors>
+                                <toolkit:IconTintColorBehavior TintColor="Black" />
+                            </Image.Behaviors>
+                        </Image>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
         <!-- Next button. Bottom Right -->
         <Button Grid.Row="3"
