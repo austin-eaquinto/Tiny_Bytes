@@ -25,8 +25,8 @@
 
 
     <FlyoutItem Title="Main Menu" Icon="icon_menu.png">
-        <ShellContent ContentTemplate="{DataTemplate views:SecondPage}"
-                      Route="SecondPage" />
+        <ShellContent ContentTemplate="{DataTemplate views:MenuPage}"
+                      Route="MenuPage" />
     </FlyoutItem>
 
     <FlyoutItem Title="Binary1" Icon="icon_menu.png">
@@ -37,6 +37,16 @@
     <FlyoutItem Title="Binary2" Icon="icon_menu.png">
         <ShellContent ContentTemplate="{DataTemplate views:BinaryLesson02}"
               Route="BinaryLesson02" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Hexadecimal1" Icon="icon_menu.png">
+        <ShellContent ContentTemplate="{DataTemplate views:HexLesson01}"
+          Route="HexLesson01" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Hexadecimal2" Icon="icon_menu.png">
+        <ShellContent ContentTemplate="{DataTemplate views:HexLesson02}"
+          Route="HexLesson02" />
     </FlyoutItem>
 
     <!-- You can also add MenuItems (actions) at the bottom of the flyout -->

@@ -1,8 +1,8 @@
 namespace Tiny_Bytes_Academy.Views;
 
-public partial class SecondPage : ContentPage
+public partial class MenuPage : ContentPage
 {
-	public SecondPage()
+	public MenuPage()
 	{
 		InitializeComponent();
 	}

@@ -9,6 +9,6 @@ public partial class StartPage : ContentPage
 
     private async void OnNavigateButtonClicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync($"///{nameof(SecondPage)}");
+        await Shell.Current.GoToAsync($"///{nameof(MenuPage)}");
     }
 }

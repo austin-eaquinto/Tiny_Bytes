@@ -18,7 +18,7 @@
                 StrokeThickness="2"
                 BackgroundColor="#FF9F1C"
                 Padding="12, 5"
-                WidthRequest="100"
+                WidthRequest="180"
                 HeightRequest="33"
                 VerticalOptions="Start"
                 HorizontalOptions="Start">

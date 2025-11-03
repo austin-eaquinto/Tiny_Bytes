@@ -68,6 +68,12 @@
 	  <Compile Update="Views\BinaryLesson01.xaml.cs">
 	    <DependentUpon>BinaryLesson01.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\HexLesson01.xaml.cs">
+	    <DependentUpon>HexLesson01.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\MenuPage.xaml.cs">
+	    <DependentUpon>MenuPage.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Views\StartPage.xaml.cs">
 	    <DependentUpon>StartPage.xaml</DependentUpon>
 	  </Compile>
@@ -80,7 +86,13 @@
 	  <MauiXaml Update="Views\BinaryLesson02.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Views\SecondPage.xaml">
+	  <MauiXaml Update="Views\HexLesson01.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\HexLesson02.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\MenuPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tiny_Bytes_Academy.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Tiny_Bytes_Academy.Views.MenuPage"
+             x:DataType="vm:MenuViewModel">
+
+    <ContentPage.BindingContext>
+        <vm:MenuViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="*, *, *, *"
+          BackgroundColor="#1A2238">
+
+        <Label Grid.Row="0"
+                Text="{Binding Message}" 
+                FontSize="32" 
+                TextColor="#F4F4F4"
+                FontFamily="CascadiaMono"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                />
+
+        <Border
+            Grid.Row="3"
+            Background="#00A8F3"
+            Stroke="#00A8F3"
+            StrokeShape="RoundRectangle 10"
+            Padding="12"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            >
+            <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
+                <Label
+                    Text="Start"
+                    VerticalOptions="Center" />
+
+                    <Image
+                        Source="ic_fluent_arrow_right_24_regular.png"
+                        HeightRequest="20"
+                        WidthRequest="20"
+                        Aspect="AspectFit"
+                        VerticalOptions="Center">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior TintColor="#F4F4F4" />
+                        </Image.Behaviors>
+                    </Image>
+
+            </HorizontalStackLayout>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnNavigateButtonClicked" NumberOfTapsRequired="1" />
+            </Border.GestureRecognizers>
+        </Border>
+
+        <!-- Lesson Buttons -->
+        <!-- Navigate to Binary Lesson 1 -->
+        <Button
+            Grid.Row="2"
+            Background="#00A8F3"
+            HeightRequest="53"
+            WidthRequest="60"
+            Text="B0"
+            VerticalOptions="Start"
+            HorizontalOptions="Start"
+            Command="{Binding GotoBinaryLesson1Command}">
+        </Button>
+
+        <!-- Navigate to Binary Lesson 2 -->
+        <Button
+            Grid.Row="2"
+            Background="#00A8F3"
+            HeightRequest="53"
+            WidthRequest="60"
+            Text="B1"
+            VerticalOptions="Start"
+            HorizontalOptions="Center"
+            Command="{Binding GotoBinaryLesson2Command}">
+        </Button>
+
+        <!-- Navigate to Hexadecimal Lesson 1 -->
+        <Button
+            Grid.Row="3"
+            Background="#00A8F3"
+            HeightRequest="53"
+            WidthRequest="60"
+            Text="H0"
+            VerticalOptions="Start"
+            HorizontalOptions="Start"
+            Command="{Binding GotoHexLesson1Command}">
+        </Button>
+
+        <!-- Navigate to Hexadecimal Lesson 2 -->
+        <Button
+            Grid.Row="3"
+            Background="#00A8F3"
+            HeightRequest="53"
+            WidthRequest="60"
+            Text="H0"
+            VerticalOptions="Start"
+            HorizontalOptions="Center"
+            Command="{Binding GotoHexLesson2Command}">
+        </Button>
+
+    </Grid>
+</ContentPage>

@@ -46,7 +46,7 @@ namespace Tiny_Bytes_Academy.ViewModels
         // NEW: Collection to hold the 8 bits
         public ObservableCollection<BitViewModel> Bits { get; } = new ObservableCollection<BitViewModel>();
 
-        public string LessonTitle { get; } = "Lesson 2";
+        public string LessonTitle { get; } = "Binary Lesson 2";
 
         public string CurrentInstruction
         {
@@ -65,24 +65,19 @@ namespace Tiny_Bytes_Academy.ViewModels
         {
             _steps = new List<BinLesson2Step>
             {
-                new BinLesson2Step("Binary is a base-2 number system."),
-                new BinLesson2Step("It only uses two symbols: 0 and 1. Here is a byte:"),
-                new BinLesson2Step("Each digit is called a 'bit'."),
+                new BinLesson2Step("Binary Basics #2: Binary is a base-2 number system. What does that mean? Think of it this way-> The decimal system uses ten numbers:" +
+                " 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. We keep repeating these numbers over and over to create bigger numbers like 10, 11, 12 or 100, 101, 102 and so on." +
+                " Another name for the decimal system is base-10 (because it uses ten base numbers)."),
+                new BinLesson2Step("Binary only uses two numbers: 0 and 1. How do we count in base-2? The same way as base-10. In decimal we count 0, 1, 2, 3, ... and" +
+                " in base-2 we count 0, 1, 10, 11 and so on. See the pattern? It's okay if you don't,\" +\r\n                \" we're going to practice it."),
+                new BinLesson2Step("First, image the numbers 0-9 on a ten-point gear. Each number is on the edge of the gear like so, (gear image). Each time the gear" +
+                " is incremented by one number we see the next."),
                 new BinLesson2Step("Congratulations! Lesson complete.")
             };
 
-            _currentIndex = 0;
-            CurrentInstruction = _steps[_currentIndex].Content;
-            NextCommand = new Command(OnNext);
+            NextCommand = new Command(async () => await OnNext());
 
-            // NEW: Initialize the 8 bits
-            for (int i = 0; i < 8; i++)
-            {
-                var bit = new BitViewModel();
-                // Command is set here so it can toggle its own state
-                bit.ToggleCommand = new Command(() => bit.IsZero = !bit.IsZero);
-                Bits.Add(bit);
-            }
+            InitializeComponent();  // set initial instruction
         }
 
         public void InitializeComponent()
@@ -93,7 +88,7 @@ namespace Tiny_Bytes_Academy.ViewModels
             OnPropertyChanged(nameof(IsBitVisible));
         }
 
-        private void OnNext()
+        private async Task OnNext()
         {
             if (_currentIndex < _steps.Count - 1)
             {
@@ -105,7 +100,8 @@ namespace Tiny_Bytes_Academy.ViewModels
             }
             else
             {
-                // finished - handle navigation if needed
+                // finished - navigate to the next lesson/page
+                await Shell.Current.GoToAsync("///MenuPage");
             }
         }
     }

@@ -11,7 +11,7 @@ public class StartPageViewModel : BaseViewModel
     {
         NavigateCommand = new Command(async () =>
         {
-            await Shell.Current.GoToAsync(nameof(SecondPage));
+            await Shell.Current.GoToAsync(nameof(MenuPage));
         });
     }
 }

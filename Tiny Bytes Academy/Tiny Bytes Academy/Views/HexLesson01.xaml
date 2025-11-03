@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
-    <!-- BinaryLesson01 UI Blueprint 
-    When the user clicks "Next" this won't navigate to a new page but will
-    look at the next item in the list and update the Text of the labels and buttons 
-    -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Tiny_Bytes_Academy.ViewModels"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="Tiny_Bytes_Academy.Views.BinaryLesson01"
-             x:DataType="vm:BinaryLesson01ViewModel">
+             x:Class="Tiny_Bytes_Academy.Views.HexLesson01"
+             x:DataType="vm:HexLesson01ViewModel">
 
     <ContentPage.BindingContext>
-        <vm:BinaryLesson01ViewModel />
+        <vm:HexLesson01ViewModel />
     </ContentPage.BindingContext>
 
     <!-- the number of rows on the page -->
     <Grid RowDefinitions="*, *, *, *"
           BackgroundColor="#1A2238">
-        
+
         <!-- Lesson number. Top Left -->
         <Border Stroke="#00A8F3"
                 StrokeThickness="2"
                 BackgroundColor="#FF9F1C"
                 Padding="12, 5"
-                WidthRequest="180"
+                WidthRequest="210"
                 HeightRequest="33"
                 VerticalOptions="Start"
                 HorizontalOptions="Start">
@@ -31,8 +27,8 @@
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="10"/>
             </Border.StrokeShape>
-               
-        <Label x:Name="BinaryLesson1Label"
+
+            <Label x:Name="BinaryLesson1Label"
                Grid.Row="0"
                Text="{Binding LessonTitle}"
                TextColor="#1A2238"
@@ -57,7 +53,7 @@
                      Spacing="25"
                      Grid.Row="2"
                      Grid.RowSpan="2">
-            
+
             <Image x:Name="LightbulbImage"
                 Source="lightbulb_off.png"
                 HeightRequest="200"
