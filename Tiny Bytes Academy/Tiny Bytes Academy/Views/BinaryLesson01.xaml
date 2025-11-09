@@ -41,15 +41,18 @@
         </Border>
 
         <!-- Lesson content -->
-        <Label x:Name="LessonContentLabel"
-               Grid.Row="1"
-               Text="{Binding CurrentInstruction}"
-               TextColor="#F4F4F4"
-               FontFamily="CascadiaMono"
-               FontSize="18"
-               VerticalOptions="End" 
-               HorizontalOptions="Center"
-               Padding="20"/>
+        <Border
+            Stroke="#7600bc">
+            <Label x:Name="LessonContentLabel"
+                   Grid.Row="1"
+                   Text="{Binding CurrentInstruction}"
+                   TextColor="#F4F4F4"
+                   FontFamily="CascadiaMono"
+                   FontSize="18"
+                   VerticalOptions="End" 
+                   HorizontalOptions="Center"
+                   Padding="20"/>
+        </Border>
 
 
         <VerticalStackLayout x:Name="LightbulbContainer"

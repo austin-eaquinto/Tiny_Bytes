@@ -96,11 +96,22 @@
             Background="#00A8F3"
             HeightRequest="53"
             WidthRequest="60"
-            Text="H0"
+            Text="H1"
             VerticalOptions="Start"
             HorizontalOptions="Center"
             Command="{Binding GotoHexLesson2Command}">
         </Button>
 
+        <!-- Navigate to Number Converter Page -->
+        <Button
+            Grid.Row="2"
+            Background="#00A8F3"
+            HeightRequest="53"
+            WidthRequest="120"
+            Text="Converter"
+            VerticalOptions="Start"
+            HorizontalOptions="End"
+            Command="{Binding GotoNumberConverterCommand}">
+        </Button>
     </Grid>
 </ContentPage>

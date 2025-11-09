@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Tiny_Bytes_Academy.Models;
 
 namespace Tiny_Bytes_Academy
 {
@@ -23,7 +24,7 @@ namespace Tiny_Bytes_Academy
                 });
 
 #if DEBUG
-                builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

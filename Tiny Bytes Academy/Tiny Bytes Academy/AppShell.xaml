@@ -49,6 +49,11 @@
           Route="HexLesson02" />
     </FlyoutItem>
 
+    <FlyoutItem Title="Number Converter" Icon="icon_converter.png">
+        <ShellContent ContentTemplate="{DataTemplate views:NumberConverterPage}"
+                      Route="NumberConverterPage" />
+    </FlyoutItem>
+
     <!-- You can also add MenuItems (actions) at the bottom of the flyout -->
     <MenuItem Text="Sign Out"
               Command="{Binding SignOutCommand}" />

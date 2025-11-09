@@ -1,3 +1,5 @@
+using TinyBytesAcademy.ViewModels;
+
 namespace Tiny_Bytes_Academy.Views;
 
 public partial class MenuPage : ContentPage
@@ -5,7 +7,7 @@ public partial class MenuPage : ContentPage
 	public MenuPage()
 	{
 		InitializeComponent();
-	}
+    }
 
     private async void OnNavigateButtonClicked(object sender, EventArgs e)
     {

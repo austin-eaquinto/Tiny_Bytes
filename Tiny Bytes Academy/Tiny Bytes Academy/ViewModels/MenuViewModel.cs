@@ -12,6 +12,7 @@ public class MenuViewModel : BaseViewModel
     public ICommand GotoBinaryLesson2Command { get; }
     public ICommand GotoHexLesson1Command { get; }
     public ICommand GotoHexLesson2Command { get; }
+    public ICommand GotoNumberConverterCommand { get; }
 
     public MenuViewModel()
     {
@@ -19,6 +20,7 @@ public class MenuViewModel : BaseViewModel
         GotoBinaryLesson2Command = new Command(async () => await Shell.Current.GoToAsync($"///{nameof(Views.BinaryLesson02)}"));
         GotoHexLesson1Command = new Command(async () => await Shell.Current.GoToAsync($"///{nameof(Views.HexLesson01)}"));
         GotoHexLesson2Command = new Command(async () => await Shell.Current.GoToAsync($"///{nameof(Views.HexLesson02)}"));
+        GotoNumberConverterCommand = new Command(async () => await Shell.Current.GoToAsync($"///{nameof(Views.NumberConverterPage)}"));
     }
 
     private async Task GoToLessonAsync(string lessonRoute)
