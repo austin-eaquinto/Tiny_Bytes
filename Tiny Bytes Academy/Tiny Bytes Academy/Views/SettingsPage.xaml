@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Tiny_Bytes_Academy.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Tiny_Bytes_Academy.Views.SettingsPage"
+             Title="Settings"
+             x:DataType="vm:SettingsViewModel">
+
+    <ContentPage.BindingContext>
+        <vm:SettingsViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="20">
+        <Label Text="Dark Mode" />
+        <Switch IsToggled="{Binding IsDarkMode, Mode=TwoWay}" />
+    </StackLayout>
+
+</ContentPage>

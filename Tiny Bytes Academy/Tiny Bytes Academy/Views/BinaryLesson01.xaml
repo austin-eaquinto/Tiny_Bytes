@@ -15,43 +15,38 @@
     </ContentPage.BindingContext>
 
     <!-- the number of rows on the page -->
-    <Grid RowDefinitions="*, *, *, *"
-          BackgroundColor="#1A2238">
+    <Grid RowDefinitions="*, *, *, *">
         
         <!-- Lesson number. Top Left -->
-        <Border Stroke="#00A8F3"
+        <Border 
+            Grid.Row="0"
                 StrokeThickness="2"
-                BackgroundColor="#FF9F1C"
+                Background="#FF9F1C"
                 Padding="12, 5"
                 WidthRequest="180"
                 HeightRequest="33"
                 VerticalOptions="Start"
-                HorizontalOptions="Start">
+                HorizontalOptions="Start"
+            ZIndex="1">
 
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="10"/>
             </Border.StrokeShape>
                
         <Label x:Name="BinaryLesson1Label"
-               Grid.Row="0"
                Text="{Binding LessonTitle}"
-               TextColor="#1A2238"
-               FontFamily="CascadiaMono"
                FontSize="15" />
         </Border>
 
         <!-- Lesson content -->
         <Border
-            Stroke="#7600bc">
+            Grid.Row="1">
             <Label x:Name="LessonContentLabel"
-                   Grid.Row="1"
                    Text="{Binding CurrentInstruction}"
-                   TextColor="#F4F4F4"
-                   FontFamily="CascadiaMono"
                    FontSize="18"
                    VerticalOptions="End" 
                    HorizontalOptions="Center"
-                   Padding="20"/>
+                   Padding="20" />
         </Border>
 
 
@@ -83,12 +78,10 @@
         <Button Grid.Row="3"
                 x:Name="NextButton"
                 Text="{Binding NextButtonText}"
-                TextColor="#F4F4F4"
                 FontFamily="CascadiaMono"
                 SemanticProperties.Hint="Goes to the next lesson item"
                 Clicked="OnNextButtonClicked"
                 HorizontalOptions="End"
-                VerticalOptions="End"
-                BackgroundColor="#00A8F3"/>
+                VerticalOptions="End" />
     </Grid>
 </ContentPage>

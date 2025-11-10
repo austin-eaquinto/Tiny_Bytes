@@ -15,13 +15,12 @@
     example, RowDefinitions="2*, 3*" would make the first row take up 2/5 of the 
     space and the second row take up 3/5. -->
     <Grid RowDefinitions="2*, 3*"
-          BackgroundColor="#1A2238">
+>
 
         <Label Grid.Row="0"
                Text="Tiny Bytes &#x0A;  Academy" 
                FontSize="32"
-               FontFamily="CascadiaMono"
-               TextColor="#F4F4F4"
+
                VerticalOptions="End"
                HorizontalOptions="Center" />
         <!--
@@ -86,7 +85,9 @@
                 </Image>
             </HorizontalStackLayout>
             <Border.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnNavigateButtonClicked" NumberOfTapsRequired="1" />
+                <TapGestureRecognizer 
+                    NumberOfTapsRequired="1" 
+                    Command="{Binding GoToSettingsPageCommand}" />
             </Border.GestureRecognizers>
         </Border>
 
@@ -102,7 +103,8 @@
                         VerticalOptions="Center"
                         HeightRequest="50"
                         WidthRequest="250"
-                        Text="Go (01000111 01101111)" />
+                        Text="Go (01000111 01101111)" 
+                        Command="{Binding GoToMenuPageCommand}"/>
 <!--
                 <Image Source="ic_fluent_arrow_right_24_regular.png"
                        HeightRequest="24"

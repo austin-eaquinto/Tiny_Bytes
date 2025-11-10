@@ -10,22 +10,17 @@
         <vm:MenuViewModel />
     </ContentPage.BindingContext>
 
-    <Grid RowDefinitions="*, *, *, *"
-          BackgroundColor="#1A2238">
+    <Grid RowDefinitions="*, *, *, *">
 
         <Label Grid.Row="0"
-                Text="{Binding Message}" 
-                FontSize="32" 
-                TextColor="#F4F4F4"
-                FontFamily="CascadiaMono"
+                Text="{Binding Message}"
+                FontSize="32"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
                 />
 
         <Border
             Grid.Row="3"
-            Background="#00A8F3"
-            Stroke="#00A8F3"
             StrokeShape="RoundRectangle 10"
             Padding="12"
             HorizontalOptions="Center"
@@ -57,7 +52,6 @@
         <!-- Navigate to Binary Lesson 1 -->
         <Button
             Grid.Row="2"
-            Background="#00A8F3"
             HeightRequest="53"
             WidthRequest="60"
             Text="B0"
@@ -69,7 +63,6 @@
         <!-- Navigate to Binary Lesson 2 -->
         <Button
             Grid.Row="2"
-            Background="#00A8F3"
             HeightRequest="53"
             WidthRequest="60"
             Text="B1"
@@ -81,7 +74,6 @@
         <!-- Navigate to Hexadecimal Lesson 1 -->
         <Button
             Grid.Row="3"
-            Background="#00A8F3"
             HeightRequest="53"
             WidthRequest="60"
             Text="H0"
@@ -93,7 +85,6 @@
         <!-- Navigate to Hexadecimal Lesson 2 -->
         <Button
             Grid.Row="3"
-            Background="#00A8F3"
             HeightRequest="53"
             WidthRequest="60"
             Text="H1"
@@ -105,7 +96,6 @@
         <!-- Navigate to Number Converter Page -->
         <Button
             Grid.Row="2"
-            Background="#00A8F3"
             HeightRequest="53"
             WidthRequest="120"
             Text="Converter"

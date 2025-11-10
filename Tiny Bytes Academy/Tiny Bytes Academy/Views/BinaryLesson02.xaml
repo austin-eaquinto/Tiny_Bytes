@@ -10,13 +10,13 @@
         <vm:BinaryLesson02ViewModel />
     </ContentPage.BindingContext>
 
-    <Grid RowDefinitions="Auto, *, Auto, Auto" BackgroundColor="#1A2238">
+    <Grid RowDefinitions="Auto, *, Auto, Auto" >
 
         <!-- Lesson number. Top Left -->
         <Border Grid.Row="0"
                 Stroke="#00A8F3"
                 StrokeThickness="2"
-                BackgroundColor="#FF9F1C"
+                Background="#FF9F1C"
                 Padding="12, 5"
                 WidthRequest="180"
                 HeightRequest="33"
@@ -32,8 +32,6 @@
         <Label x:Name="LessonContentLabel"
                Grid.Row="1"
                Text="{Binding CurrentInstruction}"
-               TextColor="#F4F4F4"
-               FontFamily="CascadiaMono"
                FontSize="18"
                VerticalOptions="End"
                HorizontalOptions="Center"

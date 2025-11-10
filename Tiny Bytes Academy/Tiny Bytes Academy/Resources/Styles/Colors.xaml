@@ -4,14 +4,23 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <!-- Main app colors. "Modern IDE" palette -->
+    <!-- Main app colors/Dark Mode. "Modern IDE" palette -->
 
-    <Color x:Key="PageBackground">#1A2238</Color>
+    <Color x:Key="DarkBackground">#1A2238</Color>
     <Color x:Key="PrimaryTextColor">#F4F4F4</Color>
     <Color x:Key="PrimaryButtonColor">#00A8F3</Color>
     <Color x:Key="SecondaryAccent">#FF9F1C</Color>
     <Color x:Key="SuccessIndicator">#2ECC71</Color>
     <Color x:Key="ErrorIndicator">#E74C3C</Color>
+
+    <!-- Main app colors/Light Mode. BYU-I palette/Brand Colors -->
+    <Color x:Key="BYUIBrandBlue">#006EB6</Color>
+    <!-- Black -->
+    <!-- White -->
+    <Color x:Key="BYUIBrandGray">#949598</Color>
+    <Color x:Key="BYUIDarkAccent">#214491</Color>
+    <Color x:Key="BYUIMediumAccent">#4F9ACF</Color>
+    <Color x:Key="BYUILightAccent">#A0D4ED</Color>
 
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
 

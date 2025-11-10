@@ -2,15 +2,11 @@
 <Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:views="clr-namespace:Tiny_Bytes_Academy.Views"
-       x:Class="Tiny_Bytes_Academy.AppShell"
-       Shell.FlyoutBackgroundColor="{StaticResource Black}"
-       ForegroundColor="#00A8F3"
-       UnselectedColor="Purple"
-       TitleColor="Purple">
+       x:Class="Tiny_Bytes_Academy.AppShell">
 
     <!-- optional header shown at top of flyout -->
     <Shell.FlyoutHeader>
-        <Grid Padding="16" BackgroundColor="#222">
+        <Grid Padding="16">
             <Label Text="Tiny Bytes Academy"
                    FontSize="18"
 />
@@ -52,6 +48,11 @@
     <FlyoutItem Title="Number Converter" Icon="icon_converter.png">
         <ShellContent ContentTemplate="{DataTemplate views:NumberConverterPage}"
                       Route="NumberConverterPage" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Settings" Icon="appicon.png">
+        <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}"
+                      Route="SettingsPage" />
     </FlyoutItem>
 
     <!-- You can also add MenuItems (actions) at the bottom of the flyout -->
