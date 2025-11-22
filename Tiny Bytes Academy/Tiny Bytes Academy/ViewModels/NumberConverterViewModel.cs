@@ -58,9 +58,9 @@ namespace TinyBytesAcademy.ViewModels
 
         public List<BaseOption> BaseOptions { get; } = new List<BaseOption>
         {
-            new BaseOption { Value = 10, Label = "Decimal (Base 10)" },
-            new BaseOption { Value = 2, Label = "Binary (Base 2)" },
-            new BaseOption { Value = 16, Label = "Hexadecimal (Base 16)" }
+            new BaseOption { Value = 10, Label = "Decimal" },
+            new BaseOption { Value = 2, Label = "Binary" },
+            new BaseOption { Value = 16, Label = "Hexadecimal" }
         };
 
         // --- Private Backing Fields ---

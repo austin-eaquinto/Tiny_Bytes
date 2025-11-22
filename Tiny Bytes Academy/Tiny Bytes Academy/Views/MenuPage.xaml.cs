@@ -1,16 +1,16 @@
-using TinyBytesAcademy.ViewModels;
+using Tiny_Bytes_Academy.ViewModels;
 
 namespace Tiny_Bytes_Academy.Views;
 
+// In MenuPage.xaml.cs
 public partial class MenuPage : ContentPage
 {
-	public MenuPage()
-	{
-		InitializeComponent();
-    }
-
-    private async void OnNavigateButtonClicked(object sender, EventArgs e)
+    // The DI system will automatically provide the MenuPageViewModel instance.
+    public MenuPage(MenuPageViewModel viewModel)
     {
-        await Shell.Current.GoToAsync($"///{nameof(BinaryLesson01)}");
+        InitializeComponent();
+
+        // ? Set the BindingContext here, in C#.
+        this.BindingContext = viewModel;
     }
 }

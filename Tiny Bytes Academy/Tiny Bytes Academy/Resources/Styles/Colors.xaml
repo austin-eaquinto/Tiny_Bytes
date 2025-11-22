@@ -5,22 +5,38 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <!-- Main app colors/Dark Mode. "Modern IDE" palette -->
-
+    <!--Main Background-->
     <Color x:Key="DarkBackground">#1A2238</Color>
-    <Color x:Key="PrimaryTextColor">#F4F4F4</Color>
-    <Color x:Key="PrimaryButtonColor">#00A8F3</Color>
-    <Color x:Key="SecondaryAccent">#FF9F1C</Color>
-    <Color x:Key="SuccessIndicator">#2ECC71</Color>
-    <Color x:Key="ErrorIndicator">#E74C3C</Color>
+    <!--For elements layered on top, like cards or headers-->
+    <Color x:Key="DarkSurface">#2A3A5E</Color>
+    <!--All primary text, labels, and content-->
+    <Color x:Key="DarkText">#F4F4F4</Color>
+    <!--Buttons, links, switches, and all interactive elements-->
+    <Color x:Key="DarkPrimaryAccent">#00A8F3</Color>
+    <!--Highlights, call-outs, info boxes, or progress bars-->
+    <Color x:Key="DarkSecondaryAccent">#FF9F1C</Color>
+    <!--Correct answer indicator/success messages-->
+    <Color x:Key="SuccessDark">#2ECC71</Color>
+    <!--Wrong answer indicator/error messages-->
+    <Color x:Key="ErrorDark">#E74C3C</Color>
 
     <!-- Main app colors/Light Mode. BYU-I palette/Brand Colors -->
-    <Color x:Key="BYUIBrandBlue">#006EB6</Color>
-    <!-- Black -->
-    <!-- White -->
-    <Color x:Key="BYUIBrandGray">#949598</Color>
-    <Color x:Key="BYUIDarkAccent">#214491</Color>
-    <Color x:Key="BYUIMediumAccent">#4F9ACF</Color>
-    <Color x:Key="BYUILightAccent">#A0D4ED</Color>
+    <!--Main Background-->
+    <Color x:Key="LightBackground">#FFFFFF</Color>
+    <!--For info boxes, selected items, or headers-->
+    <Color x:Key="LightSurface">#A0D4ED</Color>
+    <!--Use for primary text-->
+    <Color x:Key="LightText">#214491</Color>
+    <!--Buttons, links, switches, and all interactive elements-->
+    <Color x:Key="LightPrimaryAccent">#006EB6</Color>
+    <!--Highlights, call-outs, info boxes. Connects to the dark theme-->
+    <Color x:Key="LightSecondaryAccent">#F7941D</Color>
+    <!--Correct answer indicators-->
+    <Color x:Key="SuccessLight">#28A745</Color>
+    <!--Wrong answer indicators-->
+    <Color x:Key="ErrorLight">#DC3545</Color>
+    <!--Borders for text boxes, dividers, and disabled buttons-->
+    <Color x:Key="BorderLight">#949598</Color>
 
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
 

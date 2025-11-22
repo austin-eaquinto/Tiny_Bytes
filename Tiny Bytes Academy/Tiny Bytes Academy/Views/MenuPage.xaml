@@ -1,107 +1,83 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:Tiny_Bytes_Academy.Models"
              xmlns:vm="clr-namespace:Tiny_Bytes_Academy.ViewModels"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:conv="clr-namespace:Tiny_Bytes_Academy.Converters"
              x:Class="Tiny_Bytes_Academy.Views.MenuPage"
-             x:DataType="vm:MenuViewModel">
+             x:DataType="vm:MenuPageViewModel"
+             Title="Lesson Path">
 
-    <ContentPage.BindingContext>
-        <vm:MenuViewModel />
-    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <conv:InverseBooleanConverter x:Key="InverseBoolConverter" />
+        <conv:BoolToStatusIconConverter x:Key="StatusIconConverter" />
 
-    <Grid RowDefinitions="*, *, *, *">
+        <Style x:Key="PathConnectorStyle" TargetType="BoxView">
+            <Setter Property="Color" Value="{StaticResource LightSecondaryAccent}" />
+            <Setter Property="HeightRequest" Value="10" />
+            <Setter Property="WidthRequest" Value="2" />
+            <Setter Property="HorizontalOptions" Value="Start" />
+            <Setter Property="Margin" Value="24, 0, 0, 0" />
+        </Style>
 
-        <Label Grid.Row="0"
-                Text="{Binding Message}"
-                FontSize="32"
-                VerticalOptions="Center"
-                HorizontalOptions="Center"
-                />
+    </ContentPage.Resources>
 
-        <Border
-            Grid.Row="3"
-            StrokeShape="RoundRectangle 10"
-            Padding="12"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            >
-            <HorizontalStackLayout Spacing="8" VerticalOptions="Center">
-                <Label
-                    Text="Start"
-                    VerticalOptions="Center" />
+    <Grid Padding="20" RowDefinitions="Auto,*,Auto">
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Lessons}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:LessonInfo">
+                    <VerticalStackLayout Spacing="0">
 
-                    <Image
-                        Source="ic_fluent_arrow_right_24_regular.png"
-                        HeightRequest="20"
-                        WidthRequest="20"
-                        Aspect="AspectFit"
-                        VerticalOptions="Center">
-                        <Image.Behaviors>
-                            <toolkit:IconTintColorBehavior TintColor="#F4F4F4" />
-                        </Image.Behaviors>
-                    </Image>
+                        <Border Margin="0, 5, 0, 5"
+                                StrokeShape="RoundRectangle 10"
+                                StrokeThickness="2"
+                                Stroke="{StaticResource LightSecondaryAccent}"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource LightSurface}, Dark={StaticResource DarkSurface}}">
 
-            </HorizontalStackLayout>
-            <Border.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnNavigateButtonClicked" NumberOfTapsRequired="1" />
-            </Border.GestureRecognizers>
-        </Border>
+                            <Grid ColumnDefinitions="50, *, Auto"
+                                  HeightRequest="60"
+                                  Padding="5, 0"
+                                  IsEnabled="{Binding IsLocked, Converter={StaticResource InverseBoolConverter}}">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MenuPageViewModel}}, Path=GoToLessonCommand}"
+                                         CommandParameter="{Binding .}" />
+                                </Grid.GestureRecognizers>
 
-        <!-- Lesson Buttons -->
-        <!-- Navigate to Binary Lesson 1 -->
-        <Button
-            Grid.Row="2"
-            HeightRequest="53"
-            WidthRequest="60"
-            Text="B0"
-            VerticalOptions="Start"
-            HorizontalOptions="Start"
-            Command="{Binding GotoBinaryLesson1Command}">
-        </Button>
+                                <Label Grid.Column="0"
+                                       Text="{Binding IsCompleted, Converter={StaticResource StatusIconConverter}, ConverterParameter='IsCompleted'}"
+                                       FontSize="24"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
 
-        <!-- Navigate to Binary Lesson 2 -->
-        <Button
-            Grid.Row="2"
-            HeightRequest="53"
-            WidthRequest="60"
-            Text="B1"
-            VerticalOptions="Start"
-            HorizontalOptions="Center"
-            Command="{Binding GotoBinaryLesson2Command}">
-        </Button>
+                                <Label Grid.Column="1"
+                                       Text="{Binding Title}"
+                                       VerticalOptions="Center" />
 
-        <!-- Navigate to Hexadecimal Lesson 1 -->
-        <Button
-            Grid.Row="3"
-            HeightRequest="53"
-            WidthRequest="60"
-            Text="H0"
-            VerticalOptions="Start"
-            HorizontalOptions="Start"
-            Command="{Binding GotoHexLesson1Command}">
-        </Button>
+                                <Label Grid.Column="2"
+                                       Text="{Binding IsLocked, Converter={StaticResource StatusIconConverter}, ConverterParameter='IsLocked'}"
+                                       FontSize="24"
+                                       Margin="10, 0"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="End"
+                                       IsVisible="{Binding IsLocked}" />
 
-        <!-- Navigate to Hexadecimal Lesson 2 -->
-        <Button
-            Grid.Row="3"
-            HeightRequest="53"
-            WidthRequest="60"
-            Text="H1"
-            VerticalOptions="Start"
-            HorizontalOptions="Center"
-            Command="{Binding GotoHexLesson2Command}">
-        </Button>
+                            </Grid>
+                        </Border>
 
-        <!-- Navigate to Number Converter Page -->
-        <Button
-            Grid.Row="2"
-            HeightRequest="53"
-            WidthRequest="120"
-            Text="Converter"
-            VerticalOptions="Start"
-            HorizontalOptions="End"
-            Command="{Binding GotoNumberConverterCommand}">
-        </Button>
+                        <BoxView Style="{StaticResource PathConnectorStyle}" 
+                                 IsVisible="{Binding Source={RelativeSource AncestorType={x:Type CollectionView}}, Path=RemainingItemsThreshold, Converter={StaticResource InverseBoolConverter}}" />
+
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="2" Text="Number Converter"
+                Command="{Binding GotoNumberConverterCommand}"
+                VerticalOptions="End"
+                HorizontalOptions="End"
+                Margin="0, 10, 0, 0" />
+
     </Grid>
 </ContentPage>

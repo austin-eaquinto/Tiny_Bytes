@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-    <!-- BinaryLesson01 UI Blueprint 
-    When the user clicks "Next" this won't navigate to a new page but will
-    look at the next item in the list and update the Text of the labels and buttons 
-    -->
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Tiny_Bytes_Academy.ViewModels"
@@ -10,23 +6,19 @@
              x:Class="Tiny_Bytes_Academy.Views.BinaryLesson01"
              x:DataType="vm:BinaryLesson01ViewModel">
 
-    <ContentPage.BindingContext>
-        <vm:BinaryLesson01ViewModel />
-    </ContentPage.BindingContext>
-
     <!-- the number of rows on the page -->
     <Grid RowDefinitions="*, *, *, *">
         
         <!-- Lesson number. Top Left -->
         <Border 
             Grid.Row="0"
-                StrokeThickness="2"
-                Background="#FF9F1C"
-                Padding="12, 5"
-                WidthRequest="180"
-                HeightRequest="33"
-                VerticalOptions="Start"
-                HorizontalOptions="Start"
+            StrokeThickness="2"
+            Background="#FF9F1C"
+            Padding="12, 5"
+            WidthRequest="180"
+            HeightRequest="33"
+            VerticalOptions="Start"
+            HorizontalOptions="Start"
             ZIndex="1">
 
             <Border.StrokeShape>
@@ -35,6 +27,7 @@
                
         <Label x:Name="BinaryLesson1Label"
                Text="{Binding LessonTitle}"
+               TextColor="#2A3A5E"
                FontSize="15" />
         </Border>
 

@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using Tiny_Bytes_Academy.ViewModels;
 
@@ -8,10 +7,10 @@ public partial class HexLesson02 : ContentPage
 {
     bool isLightOn = false;
 
-    public HexLesson02()
+    public HexLesson02(HexLesson02ViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = new HexLesson02ViewModel();
+        this.BindingContext = viewModel;
     }
 
     protected override void OnAppearing() // reset the lesson when the page appears
@@ -20,6 +19,8 @@ public partial class HexLesson02 : ContentPage
         if (this.BindingContext is HexLesson02ViewModel viewModel)
         {
             viewModel.InitializeComponent();
+
+            viewModel.PropertyChanged += ViewModel_PropertyChanged;
         }
     }
 

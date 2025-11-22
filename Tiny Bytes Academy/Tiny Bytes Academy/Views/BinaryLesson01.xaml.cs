@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using Tiny_Bytes_Academy.ViewModels;
 
@@ -8,10 +7,10 @@ public partial class BinaryLesson01 : ContentPage
 {
     bool isLightOn = false;
 
-    public BinaryLesson01()
+    public BinaryLesson01(BinaryLesson01ViewModel viewModel)
     {
         InitializeComponent();
-        BindingContext = new BinaryLesson01ViewModel();
+        this.BindingContext = viewModel;
     }
 
     protected override void OnAppearing() // reset the lesson when the page appears

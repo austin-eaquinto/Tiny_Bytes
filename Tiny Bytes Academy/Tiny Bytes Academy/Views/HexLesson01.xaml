@@ -6,10 +6,6 @@
              x:Class="Tiny_Bytes_Academy.Views.HexLesson01"
              x:DataType="vm:HexLesson01ViewModel">
 
-    <ContentPage.BindingContext>
-        <vm:HexLesson01ViewModel />
-    </ContentPage.BindingContext>
-
     <!-- the number of rows on the page -->
     <Grid RowDefinitions="*, *, *, *" >
 

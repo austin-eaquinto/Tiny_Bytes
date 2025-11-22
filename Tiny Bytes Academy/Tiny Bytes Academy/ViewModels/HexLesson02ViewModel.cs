@@ -3,31 +3,43 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
 using Tiny_Bytes_Academy.Views;
+using Tiny_Bytes_Academy.Interfaces;
+using Tiny_Bytes_Academy.Models;
+using System.ComponentModel;
 
 namespace Tiny_Bytes_Academy.ViewModels
 {
-    public class HexLesson02ViewModel : BaseViewModel
+    public class HexLesson02ViewModel : BaseViewModel, INotifyPropertyChanged
     {
-        private readonly List<HexLesson2Step> _steps;
+        private readonly IDataService _dataService;
+        private readonly UserModel _currentUserProfile;
+        private List<HexLesson2Step> _steps;
         private int _currentIndex; // To track the current step index
         private string _currentInstruction; // To hold the current instruction text
-
         public string LessonTitle { get; } = "Hexadecimal Lesson 2";
-
         public string CurrentInstruction
         {
             get => _currentInstruction;
             set { _currentInstruction = value; OnPropertyChanged(); }
         }
-
         // New read-only property that indicates whether the lightbulb container should be visible.
         public bool IsLightbulbVisible => _currentIndex == 1;
-
         public string NextButtonText => _currentIndex < _steps.Count - 1 ? "Next" : "Finish";
-
         public ICommand NextCommand { get; }
 
-        public HexLesson02ViewModel()
+        public HexLesson02ViewModel(IDataService dataService, UserModel userProfile)
+        {
+            _dataService = dataService;
+            _currentUserProfile = userProfile;
+
+            InitializeSteps();
+
+            NextCommand = new Command(async () => await OnNext());
+
+            InitializeComponent();  // set initial instruction
+        }
+
+        private void InitializeSteps()
         {
             _steps = new List<HexLesson2Step>
             {
@@ -45,11 +57,8 @@ namespace Tiny_Bytes_Academy.ViewModels
                 " byte. Click the numbers to get an idea for all the possible combinations of bits in a byte. (byte animation)"),
                 new HexLesson2Step("Congratulations! Lesson complete.")
             };
-
-            NextCommand = new Command(async () => await OnNext());
-
-            InitializeComponent();  // set initial instruction
         }
+
         public void InitializeComponent()   // reset the lesson
         {
             _currentIndex = 0;
@@ -71,6 +80,12 @@ namespace Tiny_Bytes_Academy.ViewModels
             }
             else
             {
+                // update the model
+                // mark the specific lesson as complete on the shared, live user profile
+                _currentUserProfile.IsHex02Complete = true;
+                // persist the changes
+                // Call the IDataService to serialize and save the updated user profile to the JSON
+                await _dataService.SaveUserProfileAsync(_currentUserProfile);
                 // finished - navigate to the next lesson/page
                 await Shell.Current.GoToAsync("///MenuPage");
             }

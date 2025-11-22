@@ -1,17 +1,18 @@
 using System;
 using System.ComponentModel;
 using Tiny_Bytes_Academy.ViewModels;
+using Tiny_Bytes_Academy.Interfaces;
+using Tiny_Bytes_Academy.Models;
 
 namespace Tiny_Bytes_Academy.Views;
 
 public partial class HexLesson01 : ContentPage
 {
-	bool isLightOn = false;
 
-    public HexLesson01()
+    public HexLesson01(HexLesson01ViewModel viewModel)
 	{
 		InitializeComponent();
-		BindingContext = new HexLesson01ViewModel();
+		this.BindingContext = viewModel;
     }
 
 	protected override void OnAppearing() // reset the lesson when the page appears
@@ -49,18 +50,5 @@ public partial class HexLesson01 : ContentPage
 		{
 			viewModel.NextCommand.Execute(null);
         }
-    }
-
-	private void OnToggleButtonClicked(object sender, EventArgs e)
-	{
-		isLightOn = !isLightOn;
-		if (isLightOn)
-		{
-			//LightbulbImage.Source = "lightbulb_on.png";
-		}
-		else
-		{
-			//LightbulbImage.Source = "lightbulb_off.png";
-		}
     }
 }
