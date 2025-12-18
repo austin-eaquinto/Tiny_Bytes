@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Microsoft.Maui.Controls;
-using Tiny_Bytes_Academy.Views;
-using Tiny_Bytes_Academy.Interfaces;
-using Tiny_Bytes_Academy.Models;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Maui.Graphics;
 using System.ComponentModel;
+using System.Windows.Input;
+using Tiny_Bytes_Academy.Interfaces;
+using Tiny_Bytes_Academy.Messages;
+using Tiny_Bytes_Academy.Models;
 
 namespace Tiny_Bytes_Academy.ViewModels
 {
@@ -14,18 +13,65 @@ namespace Tiny_Bytes_Academy.ViewModels
         private readonly IDataService _dataService;
         private readonly UserModel _currentUserProfile;
         private List<HexLesson2Step> _steps;
-        private int _currentIndex; // To track the current step index
-        private string _currentInstruction; // To hold the current instruction text
-        public string LessonTitle { get; } = "Hexadecimal Lesson 2";
+        private int _currentIndex;
+        private string _currentInstruction;
+
+        public string LessonTitle { get; } = "Lesson 4";
+
         public string CurrentInstruction
         {
             get => _currentInstruction;
             set { _currentInstruction = value; OnPropertyChanged(); }
         }
-        // New read-only property that indicates whether the lightbulb container should be visible.
-        public bool IsLightbulbVisible => _currentIndex == 1;
+
         public string NextButtonText => _currentIndex < _steps.Count - 1 ? "Next" : "Finish";
+
+        // --- VISIBILITY PROPERTIES ---
+        // Step 1: Visual mapping (1010 = A, etc)
+        public bool IsMappingVisible => _currentIndex == 1;
+        // Step 2: Split explanation (1111 0000)
+        public bool IsSplitStepVisible => _currentIndex == 2;
+        // Step 3: Practice (Input the hex)
+        public bool IsPracticeVisible => _currentIndex == 3;
+        // Step 4: Color Brick
+        public bool IsColorVisible => _currentIndex == 4;
+
+        // --- PRACTICE DATA (Step 3) ---
+        public string Prac1 { get; set; }
+        public string Prac2 { get; set; }
+        public string Prac3 { get; set; }
+
+        private Color _prac1Color = Colors.Black;
+        public Color Prac1Color { get => _prac1Color; set { _prac1Color = value; OnPropertyChanged(); } }
+
+        private Color _prac2Color = Colors.Black;
+        public Color Prac2Color { get => _prac2Color; set { _prac2Color = value; OnPropertyChanged(); } }
+
+        private Color _prac3Color = Colors.Black;
+        public Color Prac3Color { get => _prac3Color; set { _prac3Color = value; OnPropertyChanged(); } }
+
+        // --- COLOR DEMO DATA (Step 4) ---
+        private string _hexInput = "FF0000";
+        public string HexInput
+        {
+            get => _hexInput;
+            set
+            {
+                _hexInput = value;
+                OnPropertyChanged();
+                UpdateColorBrick(); // Update color immediately when user types
+            }
+        }
+
+        private Color _brickColor = Colors.Red;
+        public Color BrickColor
+        {
+            get => _brickColor;
+            set { _brickColor = value; OnPropertyChanged(); }
+        }
+
         public ICommand NextCommand { get; }
+        public ICommand CheckPracticeCommand { get; }
 
         public HexLesson02ViewModel(IDataService dataService, UserModel userProfile)
         {
@@ -35,37 +81,75 @@ namespace Tiny_Bytes_Academy.ViewModels
             InitializeSteps();
 
             NextCommand = new Command(async () => await OnNext());
+            CheckPracticeCommand = new Command(OnCheckPractice);
 
-            InitializeComponent();  // set initial instruction
+            InitializeComponent();
         }
 
         private void InitializeSteps()
         {
             _steps = new List<HexLesson2Step>
             {
-                new HexLesson2Step("Have you ever watched a show, explored your pc, or looked up videos and seen something like this? \"01100101011000001010101111101011\"." +
-                " That's binary. Another name for it is machine code. Believe it or not this is code and this is what every single computer uses to accomplish everything" +
-                " it can do whether it be PC, phone, smartwatch, microwave, refrigerator or a battery powered toy. Let's learn about it!"),
-                new HexLesson2Step("The entire binary number system is made up of zeroes and ones. Each digit, whether it be a '0' or a '1' is" +
-                " called a bit. Each zero and one means something. Turn this light on and off (lightbulb animation). In binary, 0 = Off and 1 = On."),
-                new HexLesson2Step("Go ahead and turn the light on and off again. Besides Off = 0 and On = 1, what do you notice? (Lightbulb and single bit animations." +
-                " Toggling one toggles the other.) Well, one way to put it is this- When the light is on, electricity is running through the wire and when it's off the" +
-                " electricity has stopped flowing. This is important to know for later."),
-                new HexLesson2Step("We now know that a bit holds a signal On(HIGH), which is represented by a \"1\", or Off(LOW), which is represented by a \"0\". That's" +
-                " great but what does this mean in a string of bits like \"0100011101101111\"?"),
-                new HexLesson2Step("To help computers and us understand bits a little better we can group them into bytes. Eight bits equals one byte. Below is a single" +
-                " byte. Click the numbers to get an idea for all the possible combinations of bits in a byte. (byte animation)"),
-                new HexLesson2Step("Congratulations! Lesson complete.")
+                new HexLesson2Step("Binary numbers can get long and tricky to read. Hexadecimal makes them shorter by grouping binary digits into sets of four."),
+                new HexLesson2Step("Each group of 4 binary digits (a nibble) maps to one hex digit. For example: 1010 = A and 1100 = C, so 10101100 = AC."),
+                new HexLesson2Step("Let’s convert 11110000. \nStep 1: Split into groups (1111 0000). \nStep 2: Convert each (F and 0). \nAnswer: F0."),
+                new HexLesson2Step("Practice: Enter the Hex equivalent for these binary groups:"),
+                new HexLesson2Step("Hex is used in colors (RGB). The first two digits are Red, the middle are Green, the last are Blue. Try changing the code below!"),
+                new HexLesson2Step("Hexadecimal is a shortcut for binary. By grouping bits into 4s, you can quickly translate long strings into something readable.")
             };
         }
 
-        public void InitializeComponent()   // reset the lesson
+        public void InitializeComponent()
         {
             _currentIndex = 0;
             CurrentInstruction = _steps[_currentIndex].Content;
+
+            // Reset Inputs
+            Prac1 = ""; Prac2 = ""; Prac3 = "";
+            Prac1Color = Colors.Black; Prac2Color = Colors.Black; Prac3Color = Colors.Black;
+            OnPropertyChanged(nameof(Prac1)); OnPropertyChanged(nameof(Prac2)); OnPropertyChanged(nameof(Prac3));
+
+            // Reset Color Demo
+            HexInput = "FF0000";
+
+            RefreshVisibility();
+        }
+
+        private void OnCheckPractice()
+        {
+            // Answers: 0101 = 5, 1011 = B, 1110 = E
+            Prac1Color = (Prac1?.Trim() == "5") ? Colors.Green : Colors.Red;
+            Prac2Color = (Prac2?.Trim().ToUpper() == "B") ? Colors.Green : Colors.Red;
+            Prac3Color = (Prac3?.Trim().ToUpper() == "E") ? Colors.Green : Colors.Red;
+        }
+
+        private void UpdateColorBrick()
+        {
+            if (string.IsNullOrEmpty(HexInput)) return;
+
+            string hex = HexInput.Trim().Replace("#", "");
+
+            // Simple validation to ensure valid hex length
+            if (hex.Length == 6)
+            {
+                try
+                {
+                    BrickColor = Color.FromArgb("#" + hex);
+                }
+                catch
+                {
+                    // Invalid hex, ignore or set to default
+                }
+            }
+        }
+
+        private void RefreshVisibility()
+        {
             OnPropertyChanged(nameof(NextButtonText));
-            // notify UI about visibility change for the lightbulb and button
-            OnPropertyChanged(nameof(IsLightbulbVisible));
+            OnPropertyChanged(nameof(IsMappingVisible));
+            OnPropertyChanged(nameof(IsSplitStepVisible));
+            OnPropertyChanged(nameof(IsPracticeVisible));
+            OnPropertyChanged(nameof(IsColorVisible));
         }
 
         private async Task OnNext()
@@ -73,20 +157,12 @@ namespace Tiny_Bytes_Academy.ViewModels
             if (_currentIndex < _steps.Count - 1)
             {
                 _currentIndex++;
-                CurrentInstruction = _steps[_currentIndex].Content; // update instruction
-                OnPropertyChanged(nameof(NextButtonText));
-                // notify UI about visibility change
-                OnPropertyChanged(nameof(IsLightbulbVisible));
+                CurrentInstruction = _steps[_currentIndex].Content;
+                RefreshVisibility();
             }
             else
             {
-                // update the model
-                // mark the specific lesson as complete on the shared, live user profile
-                _currentUserProfile.IsHex02Complete = true;
-                // persist the changes
-                // Call the IDataService to serialize and save the updated user profile to the JSON
-                await _dataService.SaveUserProfileAsync(_currentUserProfile);
-                // finished - navigate to the next lesson/page
+                WeakReferenceMessenger.Default.Send(new LessonCompletedMessage(4));
                 await Shell.Current.GoToAsync("///MenuPage");
             }
         }
@@ -97,5 +173,4 @@ namespace Tiny_Bytes_Academy.ViewModels
         public string Content { get; set; }
         public HexLesson2Step(string content) => Content = content;
     }
-
 }

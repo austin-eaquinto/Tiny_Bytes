@@ -6,6 +6,7 @@ using Tiny_Bytes_Academy.Mocks; // We need this using statement
 
 namespace Tiny_Bytes_Academy.ViewModels;
 
+
 public class StartPageViewModel : BaseViewModel
 {
     private readonly IDataService _dataService;
@@ -20,18 +21,6 @@ public class StartPageViewModel : BaseViewModel
 
     public ICommand GoToMenuPageCommand { get; }
     public ICommand GoToSettingsPageCommand { get; }
-
-    //public StartPageViewModel()
-    //{
-
-    //    // Start loading the user profile immediately after the service is assigned
-    //    // The property (CurrentUserProfile) will update when the load completes.
-    //    Task.Run(async () => await LoadUserProfile());
-
-    //    // Command definitions
-    //    GoToMenuPageCommand = new Command(async () => await Shell.Current.GoToAsync($"///{nameof(MenuPage)}"));
-    //    GoToSettingsPageCommand = new Command(async () => await Shell.Current.GoToAsync($"///{nameof(SettingsPage)}"));
-    //}
 
     public StartPageViewModel()
     : this(new DesignDataService()) // <-- Pass the safe design-time service

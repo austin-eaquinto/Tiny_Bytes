@@ -6,47 +6,120 @@
              x:Class="Tiny_Bytes_Academy.Views.HexLesson02"
              x:DataType="vm:HexLesson02ViewModel">
 
-    <!-- the number of rows on the page -->
-    <Grid RowDefinitions="*, *, *, *" >
+    <Grid RowDefinitions="Auto, *, *, Auto" >
 
-        <!-- Lesson number. Top Left -->
-        <Border Stroke="#00A8F3"
+        <Border Grid.Row="0"
                 StrokeThickness="2"
                 Background="#FF9F1C"
                 Padding="12, 5"
-                WidthRequest="217"
-                HeightRequest="33"
                 VerticalOptions="Start"
-                HorizontalOptions="Start">
-
+                HorizontalOptions="Start"
+                ZIndex="1">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="10"/>
             </Border.StrokeShape>
 
-            <Label x:Name="BinaryLesson1Label"
-               Grid.Row="0"
-               Text="{Binding LessonTitle}"
-               TextColor="#1A2238"
-               FontFamily="CascadiaMono"
-               FontSize="15" />
+            <Label Text="{Binding LessonTitle}"
+                   TextColor="#1A2238"
+                   FontSize="15" />
         </Border>
 
-        <!-- Lesson content -->
-        <Label x:Name="LessonContentLabel"
-               Grid.Row="1"
-               Text="{Binding CurrentInstruction}"
-               FontSize="18"
-               VerticalOptions="End" 
-               HorizontalOptions="Center"
-               Padding="20"/>
+        <Border Grid.Row="1"
+                Background="White"
+                Stroke="#006EB6">
+            <Label Text="{Binding CurrentInstruction}"
+                   FontSize="18"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Center"
+                   Padding="20"/>
+        </Border>
 
-        <!-- Next button. Bottom Right -->
+        <Grid Grid.Row="2" IsVisible="{Binding IsMappingVisible}"
+              RowDefinitions="Auto, Auto, Auto"
+              ColumnDefinitions="*, *"
+              VerticalOptions="Center" HorizontalOptions="Center"
+              RowSpacing="20" ColumnSpacing="30">
+
+            <Label Grid.Row="0" Grid.Column="0" Text="1010" FontSize="30" TextColor="#006EB6" HorizontalOptions="Center"/>
+            <Label Grid.Row="0" Grid.Column="1" Text="A" FontSize="30" FontAttributes="Bold" TextColor="#FF9F1C" HorizontalOptions="Center"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Text="1100" FontSize="30" TextColor="#006EB6" HorizontalOptions="Center"/>
+            <Label Grid.Row="1" Grid.Column="1" Text="C" FontSize="30" FontAttributes="Bold" TextColor="#FF9F1C" HorizontalOptions="Center"/>
+
+            <Label Grid.Row="2" Grid.ColumnSpan="2" 
+                   Text="10101100 = AC" 
+                   FontSize="40" FontAttributes="Bold" 
+                   TextColor="#2A3A5E" HorizontalOptions="Center"
+                   Margin="0,30,0,0"/>
+        </Grid>
+
+        <VerticalStackLayout Grid.Row="2" IsVisible="{Binding IsSplitStepVisible}"
+                             VerticalOptions="Center" HorizontalOptions="Center"
+                             Spacing="20">
+
+            <Label Text="Original: 11110000" FontSize="24" HorizontalOptions="Center"/>
+
+            <Image Source="arrow_down.png" HeightRequest="30" HorizontalOptions="Center" IsVisible="false"/>
+            <Label Text="Split:  1111   0000" FontSize="30" FontAttributes="Bold" TextColor="#006EB6" HorizontalOptions="Center"/>
+
+            <Label Text="Convert:   F      0" FontSize="30" FontAttributes="Bold" TextColor="#FF9F1C" HorizontalOptions="Center"/>
+
+            <Frame BackgroundColor="#2A3A5E" Padding="15" CornerRadius="10">
+                <Label Text="Result: F0" TextColor="White" FontSize="35" FontAttributes="Bold"/>
+            </Frame>
+        </VerticalStackLayout>
+
+        <Grid Grid.Row="2" IsVisible="{Binding IsPracticeVisible}"
+              RowDefinitions="Auto, Auto, Auto, Auto"
+              ColumnDefinitions="Auto, 100"
+              VerticalOptions="Center" HorizontalOptions="Center"
+              RowSpacing="15" ColumnSpacing="20">
+
+            <Label Grid.Row="0" Grid.Column="0" Text="0101 =" FontSize="30" VerticalOptions="Center"/>
+            <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Prac1}" TextColor="{Binding Prac1Color}" FontSize="25" HorizontalTextAlignment="Center" MaxLength="1"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Text="1011 =" FontSize="30" VerticalOptions="Center"/>
+            <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Prac2}" TextColor="{Binding Prac2Color}" FontSize="25" HorizontalTextAlignment="Center" MaxLength="1"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Text="1110 =" FontSize="30" VerticalOptions="Center"/>
+            <Entry Grid.Row="2" Grid.Column="1" Text="{Binding Prac3}" TextColor="{Binding Prac3Color}" FontSize="25" HorizontalTextAlignment="Center" MaxLength="1"/>
+
+            <Button Grid.Row="3" Grid.ColumnSpan="2" 
+                    Text="Check" 
+                    Command="{Binding CheckPracticeCommand}"
+                    BackgroundColor="#2A3A5E"/>
+        </Grid>
+
+        <VerticalStackLayout Grid.Row="2" IsVisible="{Binding IsColorVisible}"
+                             VerticalOptions="Center" HorizontalOptions="Center"
+                             Spacing="20">
+
+            <BoxView Color="{Binding BrickColor}"
+                     HeightRequest="150"
+                     WidthRequest="150"
+                     CornerRadius="20"
+                     HorizontalOptions="Center"/>
+
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="#" FontSize="30" VerticalOptions="Center" TextColor="#2A3A5E"/>
+                <Entry Text="{Binding HexInput}"
+                       FontSize="30"
+                       WidthRequest="180"
+                       HorizontalTextAlignment="Center"
+                       MaxLength="6"
+                       Placeholder="RRGGBB"/>
+            </HorizontalStackLayout>
+
+            <Label Text="(Try: 0000FF, 00FF00, FFFF00)" FontSize="14" TextColor="Gray" HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+
         <Button Grid.Row="3"
                 x:Name="NextButton"
                 Text="{Binding NextButtonText}"
-                SemanticProperties.Hint="Goes to the next lesson item"
-                Clicked="OnNextButtonClicked"
+                Command="{Binding NextCommand}"
                 HorizontalOptions="End"
-                VerticalOptions="End" />
+                VerticalOptions="End"
+                Margin="10"/>
     </Grid>
 </ContentPage>

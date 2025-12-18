@@ -3,7 +3,8 @@ using Microsoft.Maui.Controls;
 
 namespace Tiny_Bytes_Academy.Converters;
 
-public class BoolToStatusIconConverter : IValueConverter
+// This file is primarily responsible for converting boolean values to status icons
+public class BoolToStatusIconConverter : IValueConverter 
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {

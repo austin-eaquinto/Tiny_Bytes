@@ -1,10 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using Tiny_Bytes_Academy.Interfaces;
 using Tiny_Bytes_Academy.Models; // Import the LessonInfo model
 using Tiny_Bytes_Academy.Views;   // Import the Views namespace
+using Tiny_Bytes_Academy.Messages;
 
 namespace Tiny_Bytes_Academy.ViewModels;
 
@@ -31,6 +34,13 @@ public partial class MenuPageViewModel : BaseViewModel
 
         // 2. Set the locked/unlocked status
         UpdateLessonLockStatus();
+
+        // Register to receive session-only "lesson completed" messages
+        WeakReferenceMessenger.Default.Register<LessonCompletedMessage>(this, (r, message) =>
+        {
+            // message.Value is the lessonId sent by the lesson view model
+            MarkLessonAsCompleted(message.Value);
+        });
     }
 
     // Single command to handle all lesson navigation, parameter is the LessonInfo object.
@@ -53,36 +63,37 @@ public partial class MenuPageViewModel : BaseViewModel
 
     private void LoadLessonData()
     {
-        // Define all lessons here with their routes. 
-        // Note: I'm setting the first one as completed for demonstration 
-        // purposes, so the second one is unlocked initially.
+        // Define all lessons here with their routes.
         Lessons.Add(new LessonInfo
         {
             LessonId = 1,
-            Title = "Module 1: What is a Bit?",
+            Title = "Lesson 1: Counting in Binary Part 1",
             Route = nameof(BinaryLesson01),
-            IsCompleted = true
+            IsCompleted = false
         });
 
         Lessons.Add(new LessonInfo
         {
             LessonId = 2,
-            Title = "Module 2: Counting in Binary",
-            Route = nameof(BinaryLesson02)
+            Title = "Lesson 2: The Basic Building Block",
+            Route = nameof(BinaryLesson02),
+            IsCompleted = false
         });
 
         Lessons.Add(new LessonInfo
         {
             LessonId = 3,
-            Title = "Module 3: Bytes and Beyond",
-            Route = nameof(HexLesson01)
+            Title = "Lesson 3: About Hexadecimal",
+            Route = nameof(HexLesson01),
+            IsCompleted = false
         });
 
         Lessons.Add(new LessonInfo
         {
             LessonId = 4,
-            Title = "Module 4: Decimal to Binary",
-            Route = nameof(HexLesson02)
+            Title = "Lesson 4: Binary and Hexadecimal",
+            Route = nameof(HexLesson02),
+            IsCompleted = false
         });
     }
 
@@ -99,14 +110,14 @@ public partial class MenuPageViewModel : BaseViewModel
             {
                 var previousLesson = Lessons[i - 1];
 
-                // Set the current lesson's lock status based on the previous one's completion status.
+                // Set the current lesson's lock status based on the previous lesson's completion status.
                 // This is the core sequential path logic.
                 Lessons[i].IsLocked = !previousLesson.IsCompleted;
             }
         }
     }
 
-    // This is the method that will be called from other ViewModels (or the MenuPage itself)
+    // This is the method that will be called from other ViewModels
     // when a lesson is successfully completed, ensuring the menu updates.
     public void MarkLessonAsCompleted(int lessonId)
     {
@@ -118,7 +129,7 @@ public partial class MenuPageViewModel : BaseViewModel
             // Recalculate locks to unlock the NEXT lesson.
             UpdateLessonLockStatus();
 
-            // Optional: Save progress to local storage here.
+            // Optional: Save progress to local storage here if you decide to persist later.
         }
     }
 

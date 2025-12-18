@@ -1,90 +1,188 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:Tiny_Bytes_Academy.ViewModels"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="Tiny_Bytes_Academy.Views.BinaryLesson02"
-             x:DataType="vm:BinaryLesson02ViewModel">
+             xmlns:viewmodels="clr-namespace:Tiny_Bytes_Academy.ViewModels" 
+             x:DataType="viewmodels:BinaryLesson02ViewModel"
+             Title="{Binding LessonTitle}">
 
-    <Grid RowDefinitions="Auto, *, Auto, Auto" >
+    <Grid RowDefinitions="Auto, *, *, Auto">
 
-        <!-- Lesson number. Top Left -->
         <Border Grid.Row="0"
-                Stroke="#00A8F3"
                 StrokeThickness="2"
                 Background="#FF9F1C"
                 Padding="12, 5"
-                WidthRequest="180"
-                HeightRequest="33"
-                VerticalOptions="Start"
-                HorizontalOptions="Start">
+                VerticalOptions="End"
+                HorizontalOptions="Start"
+                ZIndex="1">
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="10"/>
             </Border.StrokeShape>
-            <Label x:Name="BinaryLesson1Label" 
-                   Text="{Binding LessonTitle}" 
-                   TextColor="#1A2238" 
-                   FontFamily="CascadiaMono" 
+            <Label Text="{Binding LessonTitle}"
+                   TextColor="#2A3A5E"
                    FontSize="15" />
         </Border>
 
-        <!-- Lesson content -->
-        <Label x:Name="LessonContentLabel"
-               Grid.Row="1"
-               Text="{Binding CurrentInstruction}"
-               FontSize="18"
-               VerticalOptions="End"
-               HorizontalOptions="Center"
-               Margin="20"/>
+        <Border Grid.Row="1"
+                Background="White"
+                Stroke="#006EB6">
+            <Label Text="{Binding CurrentInstruction}" 
+                   FontSize="18"
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Center"
+                   Padding="20"/>
+        </Border>
 
-        <!-- MODIFIED: Changed HorizontalStackLayout to CollectionView -->
-        <!-- This will now display 8 bits from the ViewModel's 'Bits' collection -->
-        <CollectionView Grid.Row="2"
-                        ItemsSource="{Binding Bits}"
-                        IsVisible="{Binding IsBitVisible}"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center">
+        <Grid x:Name="SingleBit"
+              Grid.Row="2"
+              ColumnDefinitions="*, *"
+              IsVisible="{Binding IsBitVisible}">
 
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
-            </CollectionView.ItemsLayout>
+            <Label Grid.Column="0"
+                   Text="Click the bit: "
+                   FontSize="24"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"
+                   Margin="0,0,20,0"/>
+            <Image Grid.Column="1" 
+                   Source="{Binding SingleBit.BitImageSource}"
+                   WidthRequest="64"
+                   HeightRequest="64"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SingleBit.ToggleCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="vm:BitViewModel">
-                    <Border Stroke="#F4F4F4"
-                            StrokeThickness="3"
-                            BackgroundColor="white">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="0,0,0,0" />
-                        </Border.StrokeShape>
-                        <Border.GestureRecognizers>
-                            <!-- The Command is now bound to the command on the individual BitViewModel -->
-                            <TapGestureRecognizer Command="{Binding ToggleCommand}" />
-                        </Border.GestureRecognizers>
+        <Grid Grid.Row="2"
+              RowDefinitions="*, Auto"
+              ColumnDefinitions="*, Auto, *"
+              HorizontalOptions="Center"
+              VerticalOptions="Center"
+              IsVisible="{Binding IsLightbulbVisible}">
 
-                        <Image Source="{Binding BitImageSource}" 
-                               Margin="10"
-                               HeightRequest="38"
-                               WidthRequest="38">
-                            <Image.Behaviors>
-                                <toolkit:IconTintColorBehavior TintColor="Black" />
-                            </Image.Behaviors>
-                        </Image>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            <VerticalStackLayout Grid.Row="0" Grid.Column="0" 
+                                 HorizontalOptions="Center" 
+                                 VerticalOptions="Center"
+                                 Spacing="5">
+                <Label Text="Bit" HorizontalOptions="Center" FontSize="24" TextColor="#2A3A5E"/>
+                <Image Source="{Binding SingleBit.BitImageSource}"
+                       WidthRequest="80"
+                       HeightRequest="120">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SingleBit.ToggleCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </VerticalStackLayout>
 
-        <!-- Next button. Bottom Right -->
-        <Button Grid.Row="3"
-                x:Name="NextButton"
-                Text="{Binding NextButtonText}"
-                TextColor="#F4F4F4"
-                FontFamily="CascadiaMono"
-                SemanticProperties.Hint="Goes to the next lesson item"
-                Clicked="OnNextButtonClicked"
-                HorizontalOptions="End"
+            <Label Grid.Row="0" Grid.Column="1" 
+                   Text="=" 
+                   FontSize="50" 
+                   VerticalOptions="Center"
+                   TextColor="#2A3A5E"
+                   Margin="15,0"/>
+
+            <VerticalStackLayout Grid.Row="0" Grid.Column="2" 
+                                 HorizontalOptions="Center" 
+                                 VerticalOptions="Center"
+                                 Spacing="5">
+                <Label Text="Result" 
+                       HorizontalOptions="Center" 
+                       FontSize="24" 
+                       TextColor="#2A3A5E"/>
+                <Image Source="{Binding SingleBit.LightbulbImageSource}"
+                       WidthRequest="120"
+                       HeightRequest="120"/>
+            </VerticalStackLayout>
+
+            <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                    Text="{Binding SingleBit.StateText}"
+                    Command="{Binding SingleBit.ToggleCommand}"
+                    BackgroundColor="{Binding SingleBit.StateColor}"
+                    TextColor="White"
+                    WidthRequest="150"
+                    HeightRequest="60"
+                    FontSize="24"
+                    FontAttributes="Bold"
+                    Margin="0,15,0,0"/>
+        </Grid>
+
+        <VerticalStackLayout Grid.Row="2"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center"
+                     Spacing="30"
+                     IsVisible="{Binding IsByteVisible}">
+
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="1 Nibble (4 Bits)" 
+               FontSize="20" 
+               FontAttributes="Bold" 
+               TextColor="#2A3A5E"
+               HorizontalOptions="Center"/>
+
+                <CollectionView ItemsSource="{Binding NibbleBits}"
+                                ItemsLayout="HorizontalList"
+                                HeightRequest="60"
+                                HorizontalScrollBarVisibility="Never"
+                                HorizontalOptions="Center">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:BitViewModel">
+                            <Grid Padding="2">
+                                <Image Source="{Binding BitImageSource}" 
+                                       WidthRequest="48" 
+                                       HeightRequest="48">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToggleCommand}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <BoxView HeightRequest="2" 
+                     WidthRequest="300" 
+                     HorizontalOptions="Center"/>
+
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="1 Byte (8 Bits or 2 Nibbles)" 
+                       FontSize="20" 
+                       FontAttributes="Bold" 
+                       TextColor="#2A3A5E"
+                       HorizontalOptions="Center"/>
+
+                <CollectionView ItemsSource="{Binding Bits}"
+                                ItemsLayout="HorizontalList"
+                                HeightRequest="60"
+                                HorizontalScrollBarVisibility="Never"
+                                HorizontalOptions="Center">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="viewmodels:BitViewModel">
+                            <Grid Padding="2">
+                                <Image Source="{Binding BitImageSource}" 
+                                       WidthRequest="48" 
+                                       HeightRequest="48">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToggleCommand}" />
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+
+        <Button Grid.Row="3" 
+                Text="{Binding NextButtonText}" 
+                Command="{Binding NextCommand}" 
                 VerticalOptions="End"
-                BackgroundColor="#00A8F3"/>
+                HorizontalOptions="End"
+                Margin="10"/>
+
     </Grid>
 </ContentPage>

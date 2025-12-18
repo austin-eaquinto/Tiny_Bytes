@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tiny_Bytes_Academy.Models;
 
+// this file defines an interface for data services related to user profile management
 namespace Tiny_Bytes_Academy.Interfaces
 {
     // Interface for data services handling user profile loading and saving

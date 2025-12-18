@@ -1,33 +1,67 @@
-﻿using System.Collections.Generic;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Maui.Controls;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.Metrics;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Microsoft.Maui.Controls;
 using Tiny_Bytes_Academy.Interfaces;
+using Tiny_Bytes_Academy.Messages;
 using Tiny_Bytes_Academy.Models;
 using Tiny_Bytes_Academy.Views;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Tiny_Bytes_Academy.ViewModels
 {
     // Ensure the class is public and has a public parameterless constructor
     public class BinaryLesson01ViewModel : BaseViewModel, INotifyPropertyChanged
     {
+        public bool IsClickCounterStep1Visible => _currentIndex == 1;
+        public bool IsClickCounterStep3Visible => _currentIndex == 3;
+        public bool IsClickCounterStep4Visible => _currentIndex == 4;
+        public bool _areAnswersCorrect = false;
+        public bool AreAnswersCorrect
+        {
+            get => _areAnswersCorrect;
+            set { if (_areAnswersCorrect != value)
+                {
+                    _areAnswersCorrect = value;
+                    ((Command)NextCommand).ChangeCanExecute();
+                }    
+            }
+        }
+        private bool CanGoNext()
+        {
+            if (_currentIndex != 4)
+            {
+                return true;
+            }
+
+            return _areAnswersCorrect;
+        }
+
+        // For future user data persistence
         private readonly IDataService _dataService;
         private readonly UserModel _currentUserProfile;
+
         private List<BinLesson1Step> _steps;
         private int _currentIndex; // To track the current step index
         private string _currentInstruction; // To hold the current instruction text
-        public string LessonTitle { get; } = " Binary Lesson 1";
+        public string LessonTitle { get; } = "Lesson 1";
         public string CurrentInstruction
         {
             get => _currentInstruction;
             set { _currentInstruction = value; OnPropertyChanged(); }
         }
         // New read-only property that indicates whether the lightbulb container should be visible.
-        public bool IsLightbulbVisible => _currentIndex == 1;
-        public string NextButtonText => _currentIndex < _steps.Count - 1 ? "Next" : "Finish";
-        public ICommand NextCommand { get; }
+        // (rebuild)
 
+        public string NextButtonText => _currentIndex < _steps.Count - 1 ? "Next" : "Finish";
+
+        public ICommand NextCommand { get; }
+        //public ICommand HintCommand { get; }
         public BinaryLesson01ViewModel(IDataService dataService, UserModel userProfile)
         {
             _dataService = dataService;
@@ -35,7 +69,8 @@ namespace Tiny_Bytes_Academy.ViewModels
 
             InitializeSteps();
 
-            NextCommand = new Command(async () => await OnNext());
+            NextCommand = new Command(async () => await OnNext(), CanGoNext);
+            //HintCommand = new Command(async (obj) => await OnHint(), (obj) => IsHintVisible);
 
             InitializeComponent();  // set initial instruction
         }
@@ -44,19 +79,19 @@ namespace Tiny_Bytes_Academy.ViewModels
         {
             _steps = new List<BinLesson1Step>
             {
-                new BinLesson1Step("Have you ever watched a show, explored your pc, or looked up videos and seen something like this? \"01100101011000001010101111101011\"." +
-                " That's binary. Another name for it is machine code. Believe it or not this is code and this is what every single computer uses to accomplish everything" +
-                " it can do whether it be PC, phone, smartwatch, microwave, refrigerator or a battery powered toy. Let's learn about it!"),
-                new BinLesson1Step("The entire binary number system is made up of zeroes and ones. Each digit, whether it be a '0' or a '1' is" +
-                " called a bit. Each zero and one means something. Turn this light on and off (lightbulb animation). In binary, 0 = Off and 1 = On."),
-                new BinLesson1Step("Go ahead and turn the light on and off again. Besides Off = 0 and On = 1, what do you notice? (Lightbulb and single bit animations." +
-                " Toggling one toggles the other.) Well, one way to put it is this- When the light is on, electricity is running through the wire and when it's off the" +
-                " electricity has stopped flowing. This is important to know for later."),
-                new BinLesson1Step("We now know that a bit holds a signal On(HIGH), which is represented by a \"1\", or Off(LOW), which is represented by a \"0\". That's" +
-                " great but what does this mean in a string of bits like \"0100011101101111\"?"),
-                new BinLesson1Step("To help computers and us understand bits a little better we can group them into bytes. Eight bits equals one byte. Below is a single" +
-                " byte. Click the numbers to get an idea for all the possible combinations of bits in a byte. (byte animation)"),
-                new BinLesson1Step("Congratulations! Lesson complete.")
+                new BinLesson1Step("In decimal, when you go past 9, you add another digit" +
+                " (10, 11, …). In binary, you go past 1 much faster, so you add digits more" +
+                " often."),
+                new BinLesson1Step("For example, notice how adding “1” to “9” makes the number" +
+                " “10” by turning “9” into “0” and placing “1” to the left of the “0”. This" +
+                " repeats when “1” is added to 99, 999, and so on."),
+                new BinLesson1Step("This logic is the same in binary but happens much" +
+                " more frequently because only 0 and 1 are used. That’s a small number range!"),
+                new BinLesson1Step("Starting with the number zero count up to eight." +
+                " At \"8\" a digit has been added to the left three times. Whether this" +
+                " seems complicated or simple to you, it is important to understand for later" +
+                " concepts."),
+                new BinLesson1Step("Practice: Convert numbers 0-7 into binary.")
             };
         }
 
@@ -66,7 +101,7 @@ namespace Tiny_Bytes_Academy.ViewModels
             CurrentInstruction = _steps[_currentIndex].Content;
             OnPropertyChanged(nameof(NextButtonText));
             // notify UI about visibility change for the lightbulb and button
-            OnPropertyChanged(nameof(IsLightbulbVisible));
+
         }
 
         private async Task OnNext()
@@ -76,19 +111,21 @@ namespace Tiny_Bytes_Academy.ViewModels
                 _currentIndex++;
                 CurrentInstruction = _steps[_currentIndex].Content; // update instruction
                 OnPropertyChanged(nameof(NextButtonText));
-                // notify UI about visibility change
-                OnPropertyChanged(nameof(IsLightbulbVisible));
+                OnPropertyChanged(nameof(IsClickCounterStep1Visible));
+                OnPropertyChanged(nameof(IsClickCounterStep3Visible));
+                OnPropertyChanged(nameof(IsClickCounterStep4Visible));
             }
             else
-            {   // update the model
-                // mark the specific lesson as complete on the shared, live user profile
-                _currentUserProfile.IsBinary01Complete = true;
-                // persist the changes
-                // Call the IDataService to serialize and save the updated user profile to the JSON
-                await _dataService.SaveUserProfileAsync(_currentUserProfile);
+            {
+                // Finished lesson 1 - send session-only completion message
+                WeakReferenceMessenger.Default.Send(new LessonCompletedMessage(1));
+
                 // finished - navigate to the next lesson/page
                 await Shell.Current.GoToAsync("///MenuPage");
             }
+
+            _areAnswersCorrect = false;
+            ((Command)NextCommand).ChangeCanExecute();
         }
     }
 

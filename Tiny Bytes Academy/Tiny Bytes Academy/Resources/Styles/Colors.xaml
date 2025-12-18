@@ -4,6 +4,10 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <!-- This file contains the color palette for the app. Colors are defined here as 
+    Color resources, and can be referenced in other XAML files using StaticResource or 
+    DynamicResource markup extensions. -->
+    
     <!-- Main app colors/Dark Mode. "Modern IDE" palette -->
     <!--Main Background-->
     <Color x:Key="DarkBackground">#1A2238</Color>

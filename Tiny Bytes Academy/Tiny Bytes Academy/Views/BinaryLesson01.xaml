@@ -7,19 +7,16 @@
              x:DataType="vm:BinaryLesson01ViewModel">
 
     <!-- the number of rows on the page -->
-    <Grid RowDefinitions="*, *, *, *">
+    <Grid RowDefinitions="Auto, *, *, Auto">
         
         <!-- Lesson number. Top Left -->
-        <Border 
-            Grid.Row="0"
-            StrokeThickness="2"
-            Background="#FF9F1C"
-            Padding="12, 5"
-            WidthRequest="180"
-            HeightRequest="33"
-            VerticalOptions="Start"
-            HorizontalOptions="Start"
-            ZIndex="1">
+        <Border Grid.Row="0"
+                StrokeThickness="2"
+                Background="#FF9F1C"
+                Padding="12, 5"
+                VerticalOptions="Start"
+                HorizontalOptions="Start"
+                ZIndex="1">
 
             <Border.StrokeShape>
                 <RoundRectangle CornerRadius="10"/>
@@ -32,49 +29,190 @@
         </Border>
 
         <!-- Lesson content -->
-        <Border
-            Grid.Row="1">
+        <Border Grid.Row="1"
+                Background="White"
+                Stroke="#006EB6">
+            
             <Label x:Name="LessonContentLabel"
                    Text="{Binding CurrentInstruction}"
                    FontSize="18"
-                   VerticalOptions="End" 
+                   VerticalOptions="Center" 
                    HorizontalOptions="Center"
                    Padding="20" />
         </Border>
 
+        <HorizontalStackLayout x:Name="Lesson1Step1Interactive"
+                               Grid.Row="2"
+                               HorizontalOptions="Center"
+                               Spacing="25"
+                               IsVisible="{Binding IsClickCounterStep1Visible}">
 
-        <VerticalStackLayout x:Name="LightbulbContainer"
-                     IsVisible="False"
-                     Spacing="25"
-                     Grid.Row="2"
-                     Grid.RowSpan="2">
+            <Label x:Name="CounterLabel" 
+                   Text="9" 
+                   FontSize="60"
+                   FontAttributes="Bold"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   WidthRequest="80"/>
+
+            <Button x:Name="CounterButton"
+                    Grid.Row="2"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Start"
+                    WidthRequest="80"
+                    HeightRequest="50"
+                    Text="+"
+                    FontSize="30"
+                    FontAttributes="Bold"
+                    Clicked="OnCounterClicked">
+
+            </Button>
+        </HorizontalStackLayout>
+
+        <Grid x:Name="Lesson1Step3Interactive"
+              Grid.Row="2"
+              RowDefinitions="Auto, Auto, Auto"
+              ColumnDefinitions="*, *"
+              HorizontalOptions="Center"
+              VerticalOptions="Center"
+              ColumnSpacing="30"
+              RowSpacing="10"
+              IsVisible="{Binding IsClickCounterStep3Visible}">
+
+            <Label Text="Decimal"
+                   Grid.Row="0" Grid.Column="0"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   TextColor="#2A3A5E"/>
+
+            <Label Text="Binary"
+                   Grid.Row="0" Grid.Column="1"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   TextColor="#2A3A5E"/>
+
+            <Label x:Name="DecimalCountLabel"
+                   Grid.Row="1" Grid.Column="0"
+                   Text="0"
+                   FontSize="60"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   TextColor="Black"/>
+
+            <Label x:Name="BinaryCountLabel"
+                   Grid.Row="1" Grid.Column="1"
+                   Text="0"
+                   FontSize="60"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   WidthRequest="142"
+                   TextColor="#006EB6"/>
+
+            <Button x:Name="Step3Button"
+                    Grid.Row="2" Grid.ColumnSpan="2"
+                    Text="+"
+                    FontSize="30"
+                    FontAttributes="Bold"
+                    WidthRequest="80"
+                    HeightRequest="50"
+                    HorizontalOptions="Center"
+                    Clicked="OnBinaryCounterClicked"/>
+        </Grid>
+
+           <!-- 4x3 -->
+        <Grid x:Name="Lesson1Step4Interactive"
+              Margin="0, 50, 0, 0"
+              Grid.Row="2"
+              Grid.RowSpan="3"
+              RowDefinitions="Auto, Auto, Auto, Auto"
+              ColumnDefinitions="*, *, *"
+              RowSpacing="10"
+              IsVisible="{Binding IsClickCounterStep4Visible}"
+>
             
-            <Image x:Name="LightbulbImage"
-                Source="lightbulb_off.png"
-                HeightRequest="200"
-                Aspect="AspectFit" />
+            <Label Grid.Row="0" Grid.Column="0"
+                   Text="0 = 0"
+                   FontSize="25"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+            <Label Grid.Row="1" Grid.Column="0"
+                   Text="1 = 1"
+                   FontSize="25"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+            <Label Grid.Row="2" Grid.Column="0"
+                   Text="10 = 2"
+                   FontSize="25"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+            <Label Grid.Row="3" Grid.Column="0"
+                   Text="11 = 3"
+                   FontSize="25"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+            <Label Grid.Row="0" Grid.Column="1"
+                   Text="100 = "
+                   FontSize="25"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+            <Label Grid.Row="1" Grid.Column="1"
+                   Text="101 = "
+                   FontSize="25"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+            <Label Grid.Row="2" Grid.Column="1"
+                   Text="110 = "
+                   FontSize="25"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+            <Label Grid.Row="3" Grid.Column="1"
+                   Text="111 = "
+                   FontSize="25"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center"/>
+            <Entry x:Name="Number4" 
+                   TextChanged="OnCheckStep4AnswersClicked"
+                   Grid.Row="0"
+                   Grid.Column="2"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontSize="25"/>
+            <Entry x:Name="Number5"
+                   TextChanged="OnCheckStep4AnswersClicked"
+                   Grid.Row="1"
+                   Grid.Column="2"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontSize="25"/>
+            <Entry x:Name="Number6" 
+                   TextChanged="OnCheckStep4AnswersClicked"
+                   Grid.Row="2"
+                   Grid.Column="2"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontSize="25"/>
+            <Entry x:Name="Number7" 
+                   TextChanged="OnCheckStep4AnswersClicked"
+                   Grid.Row="3"
+                   Grid.Column="2"
+                   HorizontalOptions="Start"
+                   VerticalOptions="Center"
+                   FontSize="25"/>
 
-            <!-- Lightbulb toggle button -->
-            <Button
-            x:Name="ToggleButton"
-            Text="Off"
-            Clicked="OnToggleButtonClicked"
-            WidthRequest="200"
-            HeightRequest="50"
-            FontSize="20"
-            CornerRadius="25"
-            BackgroundColor="#E74C3C"
-            TextColor="White" />
-        </VerticalStackLayout>
+        </Grid>
+
 
         <!-- Next button. Bottom Right -->
         <Button Grid.Row="3"
                 x:Name="NextButton"
                 Text="{Binding NextButtonText}"
-                FontFamily="CascadiaMono"
                 SemanticProperties.Hint="Goes to the next lesson item"
                 Clicked="OnNextButtonClicked"
                 HorizontalOptions="End"
-                VerticalOptions="End" />
+                VerticalOptions="End"
+                Margin="10" />
     </Grid>
 </ContentPage>

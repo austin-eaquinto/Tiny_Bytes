@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tiny_Bytes_Academy.Interfaces;
 
+// this interface defines a navigation service for navigating between views in a MAUI application.
 public interface INavigationService
 {
     // The ViewModel only requests navigation to a named route.

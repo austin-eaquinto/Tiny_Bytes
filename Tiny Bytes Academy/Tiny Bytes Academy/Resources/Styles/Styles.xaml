@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
+    
+<!-- This file contains styles for various UI components used throughout the app. 
+     Styles help maintain a consistent look and feel, and can be easily updated in one place. -->
+    
 <ResourceDictionary 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">

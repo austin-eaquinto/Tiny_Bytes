@@ -3,6 +3,7 @@ using Microsoft.Maui.Controls;
 
 namespace Tiny_Bytes_Academy.Converters;
 
+// this file is primarily used to invert boolean values in data bindings
 public class InverseBooleanConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)

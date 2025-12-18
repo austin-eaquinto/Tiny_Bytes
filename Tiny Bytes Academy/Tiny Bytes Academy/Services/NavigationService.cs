@@ -2,6 +2,7 @@
 
 namespace Tiny_Bytes_Academy.Services;
 
+// this service handles navigation throughout the app
 public class NavigationService : INavigationService
 {
     public async Task NavigateToAsync(string route)
