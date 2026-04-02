@@ -117,7 +117,7 @@ namespace Tiny_Bytes_Academy.ViewModels
 
         private void OnCheckPractice()
         {
-            // Answers: 0101 = 5, 1011 = B, 1110 = E
+            // ANSWERS: 0101 = 5, 1011 = B, 1110 = E
             Prac1Color = (Prac1?.Trim() == "5") ? Colors.Green : Colors.Red;
             Prac2Color = (Prac2?.Trim().ToUpper() == "B") ? Colors.Green : Colors.Red;
             Prac3Color = (Prac3?.Trim().ToUpper() == "E") ? Colors.Green : Colors.Red;
@@ -129,7 +129,7 @@ namespace Tiny_Bytes_Academy.ViewModels
 
             string hex = HexInput.Trim().Replace("#", "");
 
-            // Simple validation to ensure valid hex length
+            // simple validation to ensure valid hex length
             if (hex.Length == 6)
             {
                 try
@@ -138,7 +138,7 @@ namespace Tiny_Bytes_Academy.ViewModels
                 }
                 catch
                 {
-                    // Invalid hex, ignore or set to default
+                    // invalid hex, ignore or set to default
                 }
             }
         }
