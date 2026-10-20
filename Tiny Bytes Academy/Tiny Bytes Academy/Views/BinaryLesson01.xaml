@@ -30,15 +30,14 @@
 
         <!-- Lesson content -->
         <Border Grid.Row="1"
-                Background="White"
+                Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
                 Stroke="#006EB6">
-            
-            <Label x:Name="LessonContentLabel"
-                   Text="{Binding CurrentInstruction}"
+            <Label Text="{Binding CurrentInstruction}"
+                   TextColor="{AppThemeBinding Light=Black, Dark=White}"
                    FontSize="18"
                    VerticalOptions="Center" 
                    HorizontalOptions="Center"
-                   Padding="20" />
+                   Padding="20"/>
         </Border>
 
         <HorizontalStackLayout x:Name="Lesson1Step1Interactive"

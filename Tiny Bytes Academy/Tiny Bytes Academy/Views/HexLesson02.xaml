@@ -25,9 +25,10 @@
         </Border>
 
         <Border Grid.Row="1"
-                Background="White"
+                Background="{AppThemeBinding Light=White, Dark=#1E1E1E}"
                 Stroke="#006EB6">
             <Label Text="{Binding CurrentInstruction}"
+                   TextColor="{AppThemeBinding Light=Black, Dark=White}"
                    FontSize="18"
                    VerticalOptions="Center" 
                    HorizontalOptions="Center"
