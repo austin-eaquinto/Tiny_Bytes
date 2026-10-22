@@ -1,0 +1,12 @@
+do:
+create branch for v2?
+refactor code. abstract, encapsulate, inherit
+- lesson base
+- navigation manager
+- 
+separate lesson text from ViewModel?
+create folder for reuseable UI?
+- bit counter method with parameter for how many bits to show
+- buttons
+
+done:
