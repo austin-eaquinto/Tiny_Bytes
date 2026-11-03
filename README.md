@@ -12,7 +12,7 @@ Binary and hexadecimal are the foundation of embedded systems, and they are ofte
  
 | Lesson path | Lesson 1 | Settings |
 |---|---|---|
-| ![Lesson path](docs/screenshots/lesson-path.png) | ![Lesson 1](docs/screenshots/lesson-1.png) | ![Settings](docs/screenshots/settings.png) |
+| ![Lesson path](demo_images/TBA_lesson_path.png) | ![Lesson 1](demo_images/TBA_lesson_1.png) | ![Settings](demo_images/TBA_settings.png) |
  
 ## Lessons
  
@@ -65,14 +65,15 @@ Tiny Bytes Academy/
 ```
  
 ## Known issues
- 
+
+- **Theme styling:** Some of the font colors have not been adjusted for dark mode which makes it harder to read.
 - **Theme toggle:** The first time the Settings page is opened, the light/dark mode changes immediately instead of waiting for the toggle to be switched. Toggling afterward works normally.
 - **Progress and settings are not saved:** Lesson unlocks and the light/dark mode setting reset every time the app is closed. A local JSON data service exists in the code but is not yet connected to this behavior.
 - **Platforms:** Only the Windows build has been tested.
 - There is no final quiz or assessment at the end of the lesson path yet.
 ## Planned improvements
  
-This project works, but I reviewed the code after graduating and identified areas to clean up:
+Upon reviewing the code after graduation I identified areas to clean up:
  
 - Connect the existing data service so lesson progress and the theme preference persist between sessions
 - Move lesson interaction logic out of code-behind and into ViewModels
